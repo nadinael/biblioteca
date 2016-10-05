@@ -1,0 +1,662 @@
+
+/*
+font-family: 'Roboto', sans-serif;
+font-family: 'Muli', sans-serif;
+font-family: 'Dosis', sans-serif;
+font-family: 'Nunito', sans-serif;
+font-family: 'Asap', sans-serif;
+font-family: 'Exo 2', sans-serif;
+font-family: 'Catamaran', sans-serif;
+font-family: 'Carrois Gothic SC', sans-serif;
+font-family: 'Mountains of Christmas', cursive;
+font-family: 'Megrim', cursive;
+font-family: 'Imprima', sans-serif;
+
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/08/2016, 11:22:30
+    Author     : nadinael silva teixeira
+    email: nadinael.silva@gmail.com
+*/
+
+.biblio-topbar{
+    transition: height 0.7s ease 0s;
+
+    background-color:#313B3F;
+    /* #4F5253;
+    EAE8DD
+    B4B4B4
+    
+    */
+
+    height:50px;
+
+    min-height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.biblio-topbar > img{
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+
+/* barra esquerda */
+.biblio-sidebar{
+
+    background-color:#E6E6E7;
+    /*border-right: 1px solid #eaeaea;
+    border-top: 1px solid #373737;E8E6DC; */
+
+    width: 210px;
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 980;
+    margin-left: -250px;
+    transition: margin-left 0.8s;
+    overflow-y: auto;
+
+    border-right-color: #000;
+
+}
+
+.biblio-sidebar.is-toggled{
+    margin-left: 0;
+}
+
+@media(min-width:960px){
+    .biblio-sidebar{
+        margin-left: 0px;
+    }
+
+    .biblio-sidebar.is-toggled{
+        margin-left: -250px;
+    }
+}
+
+
+
+.biblio-toggle{
+    float: left;
+    line-height: 50px;
+    margin-left: 15px;
+    color:white;/* #CEC9AC;*/
+    font-size: 25px;
+}
+
+.ui-growl{
+    position:fixed !important;
+    right: 10px!important;
+    top: 130px!important;
+    color: #CEC9AC;
+    font-size: 15px !important;
+}
+
+@media(min-width:640px){
+    .ui-growl{
+        top: 55px!important;
+        font-size: 15px !important;
+    }
+}
+
+.biblio-background{
+    background-color:whitesmoke;/*#CEC9AC;*/
+}
+
+
+/*botao toggle form login*/
+.biblio-login-bar{
+    float: right;
+    line-height: 50px !important;
+    margin-right: 15px;
+    color:white; /*#CEC9AC;*/
+    font-size: 30px;
+
+}
+
+/*Century Gothic*/
+.biblio-frm-login.is-toggled{
+    transition: margin-top 0.9s ease 0s;
+    margin-top: 5px;
+}
+
+.biblio-frm-login > form > input{
+    margin: 5px;
+} 
+.biblio-frm-login > form > button{
+    margin: 5px;
+} 
+
+.biblio-frm-login > form > button{
+    margin-right: 20px;
+    line-height: 16px !important;
+}
+
+.biblio-frm-login{
+    transition: margin-top 0.9s ease 0s;
+
+    margin-top: -200px;
+    float: right;
+    font-size: 13px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+    margin-right:40px;
+    width: 160px;
+}
+
+@media(min-width:700px){
+    .biblio-frm-login{
+        font-size: 15px ;
+        width: 550px;
+        margin-top: 5px;
+        margin-right:1px;
+    }
+
+}
+
+.biblio-topbar.is-toggled{
+    height: 120px;
+}
+
+@media(max-width:310px){
+    .biblio-topbar.is-toggled{
+        height: 165px!important;
+    }
+
+}
+
+@media(max-width:310px){
+    .biblio-frm-login{
+        margin-right: 70px;
+    }
+}
+
+
+@media(min-width:700px){
+    .biblio-topbar{
+        height: 50px !important;
+    }
+}
+
+.biblio-navmenu{
+    font-size: 0.9em;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+
+.biblio-sidemenu,
+.biblio-sidemenu ul,
+.biblio-sidemenu li,
+.biblio-sidemenu a,
+.biblio-sidemenu span {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: 13px !important;
+}
+@media(max-width:450px){
+    .biblio-sidemenu,
+    .biblio-sidemenu ul,
+    .biblio-sidemenu li,
+    .biblio-sidemenu a,
+    .biblio-sidemenu span {
+        font-size: 16px !important;
+    }
+}
+
+
+.biblio-sidemenu li {
+    list-style: none;
+}
+
+/*customizar celulas*/
+
+.biblio-sidemenu li > a {
+
+    font-weight: 600;
+
+    display: block;
+    position: relative;
+    min-width: 110px;
+    padding: 0 10px 0 10px;
+
+
+    font: bold 12px/32px Century Gothic,Arial;
+    text-decoration: none;
+
+    background: transparent;
+
+    border-top-width: 0.3px;
+    border-top-style: solid;
+    border-top-color: #313B3F;
+    color: #373737;
+
+}
+
+
+/*é possivel exibir algumas informações com a tag span, mas sera
+ocultada neste menu*/
+.biblio-sidemenu li > a span {
+    display: block;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    padding: 0 10px;
+    margin-right: 10px;
+
+    font: normal bold 12px/18px Arial;
+    background: orangered;
+
+    border-radius: 15px;
+}
+
+.sub-menu li > a span {
+    color: #797979;
+    text-shadow: 1px 1px 0px rgba(255,255,255, .2);
+    background: transparent;
+    border: 1px solid #c9c9c9;
+
+    box-shadow: none;
+}
+
+.biblio-sidemenu > li:hover > a span,
+.biblio-sidemenu > li:target > a span {
+    /*quando houver uma tag span, dentro de tag a, antecedida
+    de taga li filha da classe biblio-sidemenu e essa tag (span)
+    estiver em hover, ou seja, essse trecho customiza tag span*/
+    color: red;
+    text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+    background: white;
+}
+
+.sub-menu em {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 14px;
+    color: pink;
+}
+
+/*pronto*/
+
+.biblio-sidemenu > li > a:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 4px 8px;
+
+}
+
+.sub-menu li a {
+    color: #373737;
+    background: #FFFFFF;
+    border-top: 1px solid #c9c9c9 !important;
+
+}
+
+.sub-menu li:last-child a { border: none; }
+
+
+
+.biblio-sidemenu > li:hover > a,
+.biblio-sidemenu > li:target > a {
+
+    background: #7F939B;
+    color: whitesmoke;
+
+}
+
+
+.sub-menu li:hover a { 
+    background-color: #dfdfdf; /*cor do mouse no submenu*/
+}
+
+.biblio-sidemenu li > .sub-menu {
+    /* estado da proxima barra de navegação */  
+    height: 0;
+    overflow: hidden;
+    /*transicao do efeito acordeao*/
+    transition: all .2s ease-in-out;
+}
+
+/*acao que acontece quando se clica no menu*/
+.biblio-sidemenu li:target > .sub-menu {
+    /*quantidade que o menu ira se mover*/
+    height: 98px;
+}
+
+.biblio-tit-pg{
+    text-align: center;
+    padding-top:10px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+@media(min-width:960px){
+    .biblio-content{
+        margin-left:210px;
+    }
+
+    .biblio-content.is-toggled{
+        margin-left: 0;
+    }
+
+}
+
+.biblio-content{
+    background-color: #E6E6E7 ;/*#E9E8E2;*/
+    margin-top: 50px;
+    transition: margin-left 0.8s;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+    font-size: 14px;
+}
+
+.biblio-content .ui-fluid form input{
+    font-size: .85em !important;
+}
+/*customiza botao dentro do formulario*/
+.biblio-content form button.ui-button {
+    width: auto ;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.biblio-content form .ui-panelgrid-cell label {
+    line-height: 30px;
+}
+
+.biblio-content form .ui-panelgrid-content .ui-grid-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.biblio-content form .ui-toolbar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/*QUANTIDADE DE PIXELS QUE O SUBMENU DE LOCALIZAÇÃO DEVE SE EXPANDIR*/
+.biblio-sidemenu li:target > .sub-menu.menu-tiulo { 
+    /*quantidade que o menu ira se mover*/
+    height: 66px;
+}
+
+
+/*QUANTIDADE DE PIXELS QUE O SUBMENU DE LOCALIZAÇÃO DEVE SE EXPANDIR*/
+.biblio-sidemenu li:target > .sub-menu.menu-config { 
+    /*quantidade que o menu ira se mover*/
+    height: 66px;
+}
+
+/*QUANTIDADE DE PIXELS QUE O SUBMENU DE LOCALIZAÇÃO DEVE SE EXPANDIR*/
+.biblio-sidemenu li:target > .sub-menu.menu-localization {
+    /*quantidade que o menu ira se mover*/
+    height: 198px;
+}
+
+
+/*QUANTIDADE DE PIXELS QUE O SUBMENU DE LOCALIZAÇÃO DEVE SE EXPANDIR*/
+.biblio-sidemenu li:target > .sub-menu.menu-autor {
+    /*quantidade que o menu ira se mover*/
+    height: 66px;
+}
+/*QUANTIDADE DE PIXELS QUE O SUBMENU DE LOCALIZAÇÃO DEVE SE EXPANDIR*/
+.biblio-sidemenu li:target > .sub-menu.menu-editora {
+    /*quantidade que o menu ira se mover*/
+    height: 66px;
+}
+
+
+/*QUANTIDADE DE PIXELS QUE O SUBMENU DE LOCALIZAÇÃO DEVE SE EXPANDIR*/
+.biblio-sidemenu li:target > .sub-menu.menu-user {
+    /*quantidade que o menu ira se mover*/
+    height: 66px;
+}
+
+.biblio-rodape{
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+    margin-top: 30px;
+    border-top-color: whitesmoke;
+    border-top-width: 25px;
+    border-top-style: double;
+
+    padding: 15px 20px;
+    z-index: 99
+}
+
+.biblio-rodape .ui-grid-row .logo-ueg{
+    margin-top: 10px;
+    text-align: center;
+    width: 100% ;
+
+}
+
+.biblio-rodape .ui-grid-row .logo-ueg a img{
+    max-width:500px;
+    max-height:50px;
+    width: auto;
+    height: auto;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@media(max-width:500px){
+    .biblio-rodape .ui-grid-row .logo-ueg a img{
+        max-width:200px;
+        max-height:30px;
+        width: auto;
+        height: auto;
+
+    }
+}
+
+.biblio-rodape .social-web a img{
+    text-decoration: none;
+    color: red;
+    height:30px;
+    width:30px;
+
+    margin-top: 15px;
+    margin-bottom: 5px;
+
+
+}
+
+@media(max-width:500px){
+    .biblio-rodape .social-web a img{
+        height:20px;
+        width:20px;
+        text-decoration: none;
+    }
+
+
+}
+.biblio-rodape .social-web{
+    text-align: center;
+}
+
+/*GIF DE LOAD*/
+.ajax-status{
+    z-index: 999999999;
+
+}
+
+.ui-dialog.biblio-ajax-status{
+    z-index: 999999999;
+} 
+
+.biblio-content form .ui-state-disabled{
+    opacity: 0.80;
+}
+
+.biblio-content form button.ui-button.ui-state-disabled{
+    opacity: 0.30;
+}
+
+.ui-fluid .ui-calendar input {
+    width: 100px !important;
+}
+
+/*Esta classe é responsavel por controlar o baclgroundo dos Dialogs*/
+.ui-widget-overlay
+{
+    opacity: .3 !important; /* Make sure to change both of these, as IE only sees the second one filter: Alpha(Opacity=50) !important; */
+    background-color:#dfdfdf !important; /* This will make it darker */
+}
+
+
+@media(min-width:700px){
+    .biblio-content .ui-dialog.biblio-dialog-adiciona{
+        width: 70% !important;
+    }
+
+    .biblio-content form .ui-panelgrid-content  {
+        align-items:center;
+    }
+
+}
+
+
+
+
+/*aparentemente não esa sendo usado*/
+
+.biblio-menu-side{
+    font-size: 0.9em;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+
+.biblio-menu-side > ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.biblio-menu-side > ul a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #373737;
+
+}
+
+.biblio-menu-side > ul i {
+    margin-left: 8px;
+}
+
+.biblio-menu-side > ul a:hover, .aw-menu-side > ul a:focus{
+    background-color: #dfdfdf;
+}
+
+.biblio-menu-side ul .is-selected{
+    background-color: #cccccc;
+    border-left: 2px solid #1e94d2;
+}
+
+.biblio-menu-side ul .is-selected a {
+    color: #1e94d2;
+}
+/*TAB VIEW*/
+
+@media(max-width:640px){
+    .biblio-content .ui-tabs.ui-tabs-top > .ui-tabs-nav li{
+        width: 100%;
+    }    
+}
+
+.biblio-content .ui-tabs .ui-tabs-panel{
+    padding-left: 0px;
+
+}
+
+.biblio-content .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+    color: #05599D ;
+}
+
+.biblio-content .ui-toolbar{
+    background:#f5f5f5; /*E9E8E2*/
+}
+
+
+
+.biblio-content .ui-tabs .ui-tabs-nav li{
+    color: #313B3F;
+    background: #FFFFFF;
+}
+
+.biblio-content .ui-dialog.biblio-dialog-adiciona.see-loan{
+    font-size:16px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+
+.biblio-content .ui-dialog.biblio-dialog-adiciona.see-loan .ui-dialog-content.ui-widget-content{
+    height: 50% !important;
+}
+
+@media(max-width:700px){
+
+    .biblio-content .ui-dialog.biblio-dialog-adiciona.see-loan .ui-dialog-content.ui-widget-content{
+        font-size:14px;
+        height: 250px !important;
+    }
+}
+
+/*CUSTOMIZANDO DATATABLE*/
+/*GENERICOS*/
+
+.biblio-content form .ui-datatable div table th{
+    font-size:15px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+
+.biblio-content form .ui-datatable div table tbody td{
+    font-size:15px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+
+/*
+.biblio-content form .ui-datatable div table{
+    font-size:25px;
+    font-family:'Imprima','Asap',Arial, sans-seri !important;
+}
+*/
+/*ESPECIFICO*/
+
+/*TEM TELAS COM A 640 WIDTH TERAO FONTES MENORES*/
+@media(max-width:640px){
+    .biblio-content form .ui-datatable div .ui-widget-content{
+        font-size: 12px !important ;
+    }    
+}
+
+
+/* TAMANHO DA FONTE, EM DATATABLE DENTRO PANELGRID(FORM PARA PERSISTENCIA) */
+@media(min-width:640px){
+    .biblio-content form .ui-panelgrid div.ui-grid-row .ui-datatable table tbody tr td{
+        font-size: 12px ; 
+    }
+}
+
+/*DATATABLE DENTRO DO TABV*/
+.biblio-content .ui-tabs .ui-datatable div table th{
+    font-size:15px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
+
+.biblio-content .ui-tabs .ui-datatable div table tbody td{
+    font-size:13px;
+    font-family:'Imprima','Asap', Century Gothic, Comic Sans MS, Arial;
+}
