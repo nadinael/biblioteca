@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>BIBLIOTHEKE</title>
+        <f:facet name="first">
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        </f:facet> 
+        <meta lang="pt-br"  />
+        <h:outputStylesheet name="style-layout.css" library="css" /> 
+        <h:outputScript target="body" library="primefaces" name="jquery/jquery.js" />
+        <h:outputScript target="body" library="js" name="app.js" />
+        <style>
+            @import 'https://fonts.googleapis.com/css?family=Asap|Carrois+Gothic+SC|Catamaran|Dosis|Exo+2|Imprima|Megrim|Mountains+of+Christmas|Muli|Nunito|Roboto';
+        </style> 
+    </h:head>
+    <h:body class="biblio-background">
+
+        <header class="biblio-topbar js-topbar">
+
+            <ui:insert name="topbar"> Menu Nav Bar </ui:insert>
+
+        </header>
+
+        <aside class="biblio-sidebar js-sidebar">
+            <ui:insert name="navegacao">SIDE</ui:insert>
+        </aside>
+
+        <section id="section-content" class="biblio-content js-content">
+            <ui:insert name="conteudo"> <h1 style="text-transform: uppercase">conteudo</h1> </ui:insert>
+            <div class="biblio-rodape ui-fluid">
+                <ui:insert name="rodape"> rodape </ui:insert>
+            </div>
+        </section>
+
+        <!--
+        
+              <p:ajaxStatus class="ajax-status">
+
+            <f:facet name="start">
+                <p:graphicImage library="figuras" name="ajax-loader.gif" />
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="#" />
+            </f:facet>
+            <f:facet name="default"> 
+                <h:outputText value="@" />
+            </f:facet>
+
+        </p:ajaxStatus>
+        
+        <p:ajaxStatus class="ajax-status">
+            <f:facet name="start">
+                <h:graphicImage library="figuras" name="ajax-loader.gif" />
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus> -->
+
+
+
+        <p:ajaxStatus class="ajax-status" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />  
+
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+                  styleClass="biblio-ajax-status" responsive="true"
+                  closable="false" resizable="false" showHeader="false">
+            <p:graphicImage library="figuras" name="ajax-loader.gif" />
+        </p:dialog>
+
+    </h:body>
+</html>

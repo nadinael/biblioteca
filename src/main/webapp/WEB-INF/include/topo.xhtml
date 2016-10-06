@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+        <ui:composition>
+            <f:metadata>
+
+                <f:viewParam name="dummy" />
+                <f:viewAction action="#{sistemaBean.validarLogin()}" />
+            </f:metadata>
+
+            <f:subview id="sistema-v" rendered="#{tarefasBean.ativado}">
+            </f:subview>
+
+            <a href="#" class="biblio-toggle js-toggle">
+                <i class="fa fa-bars"></i>
+            </a>
+            <!-- FORMULARIOS DE AUTENTICACAO -->
+            <a href="#" class="biblio-login-bar js-logbar">
+                <i class="fa fa-list-ul"></i>
+            </a>
+
+            <div class="biblio-frm-login js-frm-login" >
+
+                <!-- FORMULARIO DE LOGIN -->
+                <h:form id="formulario" >
+
+                    <f:subview id="sub-login" rendered="#{!sistemaBean.logado}">
+                        <p:inputText id="login" value="#{sistemaBean.usuario.username}"  placeholder="LOGIN"
+                                     requiredMessage="Digite um nome de usuário."  required="true"/>
+                        <p:password id="senha" placeholder="SENHA" value="#{sistemaBean.usuario.senha}"
+                                    requiredMessage="Digite uma senha."   required="true" />
+                    </f:subview>
+
+                    <!-- BOTAO DE LOGOUT -->
+                    <f:subview id="sub-logout" rendered="#{sistemaBean.logado}">
+
+                        <p:button title="Minha conta" value="" class="fa fa-user"
+                                  href="#" id="botao-conta"
+                                  style="width: 60px; line-height: 20px !important ;font-size: 20px;float:right" />
+
+                    </f:subview>
+
+                    <p:commandButton update=":formulario:" actionListener="#{sistemaBean.efetuarLogin()}" rendered="#{!sistemaBean.logado}" id="btn-entrar" process=":formulario:" value="ENTRAR"/>
+
+                    <p:commandButton update=":formulario:" actionListener="#{sistemaBean.efetuaLogout()}"  rendered="#{sistemaBean.logado}" id="btn-sair" process=":formulario:"
+                                     style="float:right;" value="SAIR"/>
+
+                </h:form>
+            </div>
+            <p:growl for="chaveLogin" autoUpdate="true" class="ui-growl" showDetail="true" sticky="false" />
+            <!--classe ui-growl alterada no estilo.css -->
+        </ui:composition>
+    </h:body>
+</html>

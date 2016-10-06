@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="tabela-editora">
+        <p:dataTable value="#{tituloBean.listaEditoras}" var="publish" 
+                     reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                     emptyMessage="Nenhum registro no banco de dados." style="font-size: 0.80em"
+                     >
+            <p:column headerText="ID" width="60"  style="text-align: center" >
+                <h:outputText value="#{publish.id}" />
+            </p:column>
+            <p:column headerText="NOME" >
+                <h:outputText value="#{publish.nome}" />
+            </p:column>
+            <p:column headerText="CIDADE" >
+                <h:outputText value="#{publish.cidade.nome}" />
+            </p:column>
+            <p:column headerText="AÇÂO" width="60">
+                <p:commandButton process="@this" update=":frm-titulo:editora" onclick="PF('addEdit').hide();"
+                                 actionListener="#{tituloBean.adicionarEditora(publish)}" style="width: 60%;"
+                                 icon="fa fa-plus" title="Adicione esta editora ao título." />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+</html>

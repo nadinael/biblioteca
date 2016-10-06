@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="dummt" />
+    </f:metadata>
+    <h:form id="adiciona-copia">
+        <p:dataTable var="copia" value="#{emprestimoBean.emprestimo.titulo.copias}"
+                     reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                     emptyMessage="Nenhum registro no banco de dados." style="font-size: 0.80em">
+
+            <p:column headerText="ID" >
+                <h:outputText value="#{copia.id}" />
+            </p:column>
+
+            <p:column headerText="DESCRIÇÃO">
+                <h:outputText value="#{copia.codigo}" />
+            </p:column>
+
+            <p:column headerText="STATUS">
+                <h:outputText value="#{copia.dispStatus.descricao}" />
+            </p:column>
+
+            <p:column headerText="AÇÃO" width="50">
+                <p:commandButton disabled="#{copia.dispStatus.descricao== 'DISPONÍVEL' ? false:true }"  id="btn-select-copia" icon="fa fa-fw fa-plus" style="width: 40px"
+                                 update=":tabview:frm-emprestimo:in-titulo :tabview:frm-emprestimo:in-copia" 
+                                 process="@this" oncomplete="PF('dialogTitulo').hide();PF('dialogCopias').hide();"
+                                 actionListener="#{emprestimoBean.adicionaCopia(copia)}"/>
+
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+
+</html>

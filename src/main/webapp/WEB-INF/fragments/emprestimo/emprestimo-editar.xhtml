@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <div class="ui-fluid">
+        <h:form id="edicao">
+            <p:panelGrid layout="grid" columns="4"
+                         columnClasses="ui-grid-col-3,ui-grid-col-5,ui-grid-col-3,ui-grid-col-5" >
+                <p:outputLabel value="Leitor:"/>
+                <p:outputLabel id="ver-leitor" value="#{emprestimoBean.editandoEmprestimo.leitor.nome}" />
+
+                <p:outputLabel value="Título: "/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.titulo.nome}"/>
+
+                <p:outputLabel value="Cópia: "/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.copia.codigo}"/>
+
+                <p:outputLabel value="Data: "/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.dataEmprestimo.time}">
+                    <f:convertDateTime locale="pt" dateStyle="long" pattern="dd-MM-yyyy HH:mm" timeZone="GMT-03:00" />
+                </p:outputLabel>
+
+                <p:outputLabel value="Dt. prev p/ dev:"/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.dataEstimadaDev.time}">
+                    <f:convertDateTime locale="pt" dateStyle="long" pattern="dd-MM-yyyy HH:mm" timeZone="GMT-03:00" />
+                </p:outputLabel>
+
+                <p:outputLabel value="Data de devolução:"/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.dataDevolucao.time}">
+                    <f:convertDateTime locale="pt" dateStyle="long" pattern="dd-MM-yyyy HH:mm" timeZone="GMT-03:00" />
+                </p:outputLabel>
+
+                <p:outputLabel value="Locador:"/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.locador.username}"/>
+
+                <p:outputLabel value="Mutuário:"/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.mutuario.username}"/>
+
+                <p:outputLabel value="Status:"/>
+                <p:outputLabel value="#{emprestimoBean.editandoEmprestimo.status.descricao}"/>
+
+            </p:panelGrid>
+            <br/>
+            <p:toolbar>
+
+                <p:toolbarGroup align="left" >
+                    <p:commandButton disabled="#{!emprestimoBean.canDevolve}" value="DEVOLVER" process="@form" actionListener="#{emprestimoBean.efetuarDevolucao()}" oncomplete="PF('janela-ver').hide();"
+                                     update=":tabview:pesquisa:" />
+                    <p:commandButton value="CANCELAr" />
+                </p:toolbarGroup>
+
+                <p:toolbarGroup align="right">
+
+                    <p:commandButton value="FECHAR" />
+                </p:toolbarGroup>
+
+            </p:toolbar>
+
+            <p:messages id="mensagem" autoUpdate="true" />
+        </h:form>
+    </div>
+</html>

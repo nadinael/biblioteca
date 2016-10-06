@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+
+        <ul class="biblio-sidemenu">
+
+            <li>
+                <p:link id="link-inicio" href="/" > <i class="fa fa-fw fa-home" /> Inicio </p:link>
+            </li>
+
+            <!-- Main menu -->
+            <li>
+                <h:link id="link-emprestimo" outcome="/view/loan/form-emprestimo.xhtml"> <i class="fa fa-fw fa-retweet" />  Empréstimos </h:link>
+            </li>
+            <!-- Main menu -->
+            <li>
+                <h:link id="link-multa" outcome="/view/multa/multa.xhtml"> <i class="fa fa-fw fa-newspaper-o" /> Multa </h:link>
+            </li>
+
+            <!-- Main menu -->
+            <li id="user">
+                <a href="#user"> <i class="fa fa-fw fa-users" /> Usuários </a>
+                <ul class="sub-menu menu-user">
+                    <li> <h:link outcome="/view/user/form-usuario.xhtml"> <i class="fa fa-fw fa-user-plus" /> Adicioar Usuário </h:link></li>
+                    <li> <h:link outcome="/view/user/lista-usuario.xhtml"> <i class="fa fa-fw fa-database" /> Lista de Usuários </h:link></li>
+                </ul>
+            </li>
+
+
+            <!-- Main menu -->
+            <li id="title">
+                <a href="#title"> <i class="fa fa-fw fa-leanpub"/> Títulos </a>
+                <ul class="sub-menu menu-tiulo">
+                    <li> <h:link outcome="/view/titles/form-titulo.xhtml"> <i class="fa fa-fw fa-book" /> Adicionar Título </h:link></li>
+                    <li> <h:link outcome="/view/titles/lista-titulo.xhtml"> <i class="fa fa-fw fa-database" /> Lista de Títulos  </h:link></li>
+                </ul>
+            </li>
+
+            <!-- Main menu -->
+            <li id="edit"> <a href="#edit">  <i class="fa fa-fw fa-stack-overflow" /> Editora </a>
+                <ul class="sub-menu menu-editora">
+                    <li> <h:link outcome="/view/publishing/form-editora.xhtml"> <i class="fa fa-fw fa-clipboard" /> Adicionar Editora </h:link></li>
+                    <li> <h:link outcome="/view/publishing/lista-editora.xhtml"> <i class="fa fa-fw fa-database" /> Lista de Editoras </h:link></li>
+                </ul>
+            </li>
+
+            <!-- Main menu -->
+            <li id="aut"> <a href="#aut">  <i class="fa fa-fw fa-file-text-o" /> Autor </a>
+                <ul class="sub-menu menu-autor">
+                    <li> <h:link outcome="/view/author/form-autor.xhtml"> <i class="fa fa-fw fa-pencil-square-o" /> Adicionar Autor </h:link></li>
+                    <li> <h:link outcome="/view/author/lista-autor.xhtml"> <i class="fa fa-fw fa-database" /> Lista de Autores </h:link></li>
+                </ul>
+            </li>
+
+            <!-- Main menu -->
+            <li id="tag"> <a href="#tag">  <i class="fa fa-fw fa-tags" /> Tags </a>
+                <ul class="sub-menu menu-editora">
+                    <li> <h:link outcome="/view/tag/form-marca.xhtml"> <i class="fa fa-fw fa-tag" /> Adicinoar Tags </h:link></li>
+                    <li> <h:link outcome="/view/tag/lista-marca.xhtml"> <i class="fa fa-fw fa-search" /> Pesquisa por Tags </h:link></li>
+                </ul>
+            </li>
+
+            <!-- Main menu -->
+            <li id="loc"> <a href="#loc"><i class="fa fa-fw fa-location-arrow"></i> Localização </a>
+                <ul class="sub-menu menu-localization">
+                    <li> <h:link outcome="/view/localization/form-idioma.xhtml"> <i class="fa fa-fw fa-language" /> Adicinoar Idioma </h:link></li>
+                    <li> <h:link outcome="/view/localization/form-estado.xhtml" > <i class="fa fa-fw fa-map-marker"/> Adicionar Estado  </h:link></li>
+                    <li> <h:link outcome="/view/localization/form-cidade.xhtml" > <i class="fa fa-fw fa-building"/> Adicionar Cidade  </h:link></li>
+                    <li> <h:link outcome="/view/localization/lista-idioma.xhtml" > <i class="fa fa-fw fa-database" /> Lista de Idiomas  </h:link></li>
+                    <li> <h:link outcome="/view/localization/lista-estado.xhtml" > <i class="fa fa-fw fa-database" /> Lista de Estados  </h:link></li>
+                    <li> <h:link outcome="/view/localization/lista-cidade.xhtml" > <i class="fa fa-fw fa-database" /> Lista de Cidades  </h:link></li>
+                </ul>
+            </li>
+
+
+            <!-- Main menu -->
+            <li id="cfg"> <a href="#cfg"><i class="fa fa-fw fa-gears"></i> Configurações do Sistema </a>
+                <ul class="sub-menu menu-config">
+                    <li> <h:link outcome="/view/cfg/config-db.xhtml"> <i class="fa fa-fw fa-cubes" /> Banco de Dados </h:link></li>
+                    <li> <h:link outcome="/view/cfg/config-loan.xhtml"> <i class="fa fa-fw fa-gear" /> Empréstimo</h:link></li>
+                </ul>
+            </li>
+
+
+        </ul>
+
+    </h:body>
+</html>

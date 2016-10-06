@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="tabela-tag">
+        <p:dataTable value="#{tituloBean.listaTags}" var="tag" 
+                     reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                     emptyMessage="Nenhum registro no banco de dados." style="font-size: 0.80em">
+            <p:column headerText="ID" width="60" priority="5" style="text-align: center" >
+                <h:outputText value="#{tag.id}" />
+            </p:column>
+            <p:column headerText="NOME" width="" >
+                <h:outputText value="#{tag.descricao}" />
+            </p:column>
+            <p:column headerText="AÇÂO" width="65">
+                <p:commandButton style="width: 40px" process="@this" update=":frm-titulo:tags" onclick="PF('addTag').hide();"
+                                 actionListener="#{tituloBean.adicionarTag(tag)}" icon="fa fa-fw fa-plus" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+</html>

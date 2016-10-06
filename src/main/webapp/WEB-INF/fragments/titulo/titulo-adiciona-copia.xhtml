@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="dummt" />
+        <f:viewAction action="#{tituloBean.novoExemplar()}" />
+    </f:metadata>
+    <h:form id="tabela-exemplar">
+        <div class="ui-fluid">
+            <p:panelGrid layout="grid" columns="2">
+                <p:outputLabel for="n-tombo" value="Nº de tombo:" />
+                <p:inputText id="n-tombo" value="#{tituloBean.copia.tombo}" title="Campo opcional para o número de tombo do título." />
+                <p:outputLabel for="codigo" value="Código:" />
+                <p:inputText id="codigo" value="#{tituloBean.copia.codigo}" maxlength="150" required="true"
+                             requiredMessage="Uma cópia necessita de um código." title="Um código serve como uma descrição entre as cópias do título."
+                             disabled="true" />
+
+                <f:facet name="footer">
+                    <p:commandButton style="height: 30px;" icon="fa fa-fw fa-plus"
+                                     process="@form" update=":frm-titulo:exemplares" onclick="PF('addCopy').hide();"
+                                     actionListener="#{tituloBean.adicionarCopia}" title="Adicione cópias ao título." />
+                </f:facet>
+            </p:panelGrid>
+        </div>
+    </h:form>
+
+</html>

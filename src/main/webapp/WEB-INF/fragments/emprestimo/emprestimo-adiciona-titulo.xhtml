@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="adiciona-titulo">
+        <p:dataTable id="data-table" value="#{emprestimoBean.listaTitulos}" var="titulo"
+                     reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                     emptyMessage="Nenhum registro no banco de dados." style="font-size: 0.80em">
+            <p:column headerText="ID" width="60" style="text-align: center" >
+                <h:outputText value="#{titulo.id}" />
+            </p:column>
+            <p:column headerText="TÍTULO" >
+                <h:outputText value="#{titulo.nome}" />
+            </p:column>
+            <p:column headerText="AÇÂO" style="width: 180px">
+                <p:commandButton id="btn-add-copia" value="Selecionar cópia"
+                                 update=":adiciona-copia" actionListener="#{emprestimoBean.selecionaTitulo(titulo)}"
+                                 process="@this" oncomplete="PF('dialogCopias').show();">
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+</html>
