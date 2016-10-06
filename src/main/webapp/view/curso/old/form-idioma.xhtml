@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+        <ui:define name="titulo">
+            <title> Idioma </title>
+        </ui:define>
+        <ui:define name="conteudo" >
+            <div>
+                <h1 style="text-align: center" >Formulário</h1>
+            </div> 
+
+            <f:metadata>
+                <f:event listener="#{idiomaBean.configurarForm()}" type="preRenderView"/>
+            </f:metadata>
+
+            <h:form id="frm-idioma">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="nome" value="Nome:" />
+                    <p:inputText style="text-transform: uppercase;" id="nome" value="#{idiomaBean.idioma.descricao}"
+                                 placeholder="Descrição do idioma." />
+
+                </p:panelGrid>
+                <br/>
+                <p:commandButton process="@form" update="@form" value="Salvar" action="#{idiomaBean.salvar()}" />
+            </h:form>
+            <p:messages autoUpdate="true"/>
+
+        </ui:define>
+    </ui:composition>
+</html>

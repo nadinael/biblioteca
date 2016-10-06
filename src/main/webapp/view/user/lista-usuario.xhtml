@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{usuarioBean.configurarTabela()}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Lista de Usuários</h1>
+
+        <h:form id="lista-users">
+
+
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Editar" rendered="#{usuarioBean.tabelaPronta}" />
+                    <p:commandButton value="Ver" rendered="#{usuarioBean.tabelaPronta}" />
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Adicionar Usuário" outcome="/view/user/form-usuario.xhtml" />
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <f:subview id="subview-ready" rendered="#{usuarioBean.tabelaPronta}">
+                <p:dataTable  rowKey="#{user.id}" selectionMode="single" selection="#{usuarioBean.editandoUsuario}" value="#{usuarioBean.listaUsuarios}" var="user"
+                              reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                              emptyMessage="Sem Usuário em registro, pode ser algum problema de conexão." style="font-size: 0.80em" >
+                    <p:column headerText="ID" width="30">
+                        <h:outputText value="#{user.id}" />
+                    </p:column>
+                    <p:column headerText="NOME">
+                        <h:outputText value="#{user.nome}" />
+                    </p:column>
+                    <p:column headerText="LOGIN">
+                        <h:outputText value="#{user.username}" />
+                    </p:column>
+
+                    <p:column headerText="TELEFONE" width="90">
+                        <h:outputText value="#{user.telefone}" />
+                    </p:column>
+
+                    <p:column headerText="E-MAIL" priority="5">
+                        <h:outputText value="#{user.email}"/>
+                    </p:column>
+
+                    <p:column headerText="TIPO" width="20" style="text-align: center;">
+                        <h:outputText value="#{user.tipo}" />
+                    </p:column>
+
+                    <p:column headerText="Dt. Nasc" priority="6" width="80">
+                        <h:outputText value="#{user.dataNascimento}">
+                            <f:convertDateTime locale="pt" pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                </p:dataTable>
+            </f:subview>
+
+            <p:commandButton update=":lista-users: " process=":lista-users: " actionListener="#{usuarioBean.carregarDados()}"
+                             rendered="#{!usuarioBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+        <p:messages autoUpdate="true"/>
+    </ui:define>
+</ui:composition>

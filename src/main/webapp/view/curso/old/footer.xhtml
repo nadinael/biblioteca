@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+
+        <div class="row">
+
+            <div class="col-lg-6 estilo-medio-espaco estilo-centralizado fonte-batang">
+                Desenvolvido Por: Nadinael Silva Teixeira ©
+            </div>
+
+            <div class="col-lg-2 estilo-medio-espaco estilo-centralizado" >
+                <p:ajaxStatus class="ajax-status">
+                    <f:facet name="start">
+                        <h:graphicImage library="imagens" name="load-b01.gif" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+            </div>
+
+            <div class="col-lg-4 estilo-medio-espaco estilo-centralizado">
+                <p:clock pattern="HH:mm:ss dd.MM.yyyy" />
+            </div>
+
+        </div>
+
+        <p:spacer />
+
+        <div class="row" > 
+            <div class="estilo-medio-espaco">
+
+
+                <div class=" col-md-2 social">
+                    <a href="http://steamcommunity.com/id/nadinael/" class="estilo-social" target="_blank">
+                        <p:graphicImage value="/resources/imagens/social-steam.png" height="50px" width="50px"/>
+                    </a>
+                </div>
+
+                <div class=" col-md-2 social">
+                    <a href="https://www.facebook.com/nadinael.silva" class="estilo-social" target="_blank">
+                        <p:graphicImage value="/resources/imagens/social-fb.png" height="50px" width="50px" />
+                    </a>
+                </div>
+
+                <div class=" col-md-2 social">
+                    <a href="https://twitter.com/Nadinael" class="estilo-social" target="_blank">
+                        <p:graphicImage value="/resources/imagens/social-twitter.png" height="50px" width="50px" />
+                    </a>
+                </div>
+
+                <div class=" col-md-2 social">
+                    <a href="https://br.linkedin.com/in/nadinael-silva-8621a3104" class="estilo-social" target="_blank">
+                        <p:graphicImage value="/resources/imagens/social-linkedin.png" height="50px" width="50px" />
+                    </a>
+                </div>
+
+                <div class=" col-md-2 social">
+                    <a href="https://plus.google.com/u/0/110333984875432597562" class="estilo-social" target="_blank">
+                        <p:graphicImage value="/resources/imagens/social-gplus.png" height="50px" width="50px" />
+                    </a>
+                </div>
+
+                <div class=" col-md-2 social">
+                    <a href="https://www.instagram.com/nadinael.silva/" class="estilo-social" target="_blank">
+                        <p:graphicImage value="/resources/imagens/social-instagram.png" height="50px" width="50px" />
+                    </a>
+                </div>
+
+
+            </div>
+            <!-- Container principal -->
+        </div>
+
+        <p:spacer />
+
+        <div class="row">
+            <div class="estilo-medio-espaco estilo-centralizado">
+                <a href="http://www.posse.ueg.br/">
+                    <p:graphicImage value="/resources/imagens/logo_ueg_posse.png" height="50" width="250" />
+                </a>
+            </div>
+        </div>
+
+        <p:spacer />
+
+
+    </h:body>
+</html>

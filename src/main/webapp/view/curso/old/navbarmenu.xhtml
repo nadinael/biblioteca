@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+        <ui:composition>
+
+            <f:metadata>
+                <f:viewParam name="dummy" />
+            </f:metadata>
+
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <p:panel>
+
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#responsivo" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <p:link href="/" value="BILBIOTHEKE" style="text-decoration: none" />
+                        </div>
+
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="responsivo">
+
+                            <ul class="nav navbar-nav"> <!-- UL = Linha -->
+
+                                <li class="dropdown">
+                                    <!-- data-toggle="dropdown É ESTE COMPONENTE QUE CAUSA EFEITOR DROP AND DOWND NOS ITENS SUBSEQUENTES -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                                       aria-haspopup="true" role="button" >USUÁRIO<span class="caret" /> </a>
+                                    <ul class="dropdown-menu menu-container-itens">
+                                        <li> <p:button class="item-menu" value="NOVO CADASTRO" href="/view/user/form-usuario.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE USUARIOS" href="/view/user/lista-usuario.jsf" /> </li>
+                                    </ul>
+                                </li>
+
+
+
+
+                                <li class="dropdown">
+                                    <!-- data-toggle="dropdown É ESTE COMPONENTE QUE CAUSA EFEITOR DROP AND DOWND NOS ITENS SUBSEQUENTES -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                                       aria-haspopup="true" role="button" >EXEMPLARES<span class="caret" /> </a>
+                                    <ul class="dropdown-menu menu-container-itens">
+                                        <li> <p:button class="item-menu" value="CADASTRO DE EXEMPLARES" href="/view/titles/form-exemplar.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="CADASTRO DE EDITORAS" href="/view/publishing/form-editora.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="CADASTRO DE AUTORES" href="/view/author/form-autor.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="CADASTRO DE MARCA" href="/view/tag/form-marca.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE EXEMPLARES" href="/view/titles/lista-exemplar.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE EDITORAS" href="/view/publishing/lista-editora.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE AUTORES" href="/view/author/lista-autor.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE MARCAS" href="/view/tag/lista-marca.jsf" /></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="dropdown">
+                                    <!-- data-toggle="dropdown É ESTE COMPONENTE QUE CAUSA EFEITOR DROP AND DOWND NOS ITENS SUBSEQUENTES -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                                       aria-haspopup="true" role="button" >EMPRÉSTIMOS<span class="caret" /> </a>
+                                    <ul class="dropdown-menu menu-container-itens">
+                                        <li> <p:button class="item-menu" value="NOVO EMPRÉSTIMO" href="/view/loan/form-emprestimo.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE EMPRÉSTIMOS" href="/view/loan/lista-emprestimo.jsf" /> </li>
+                                    </ul>
+                                </li>
+
+
+
+                                <li class="dropdown">
+                                    <!-- data-toggle="dropdown É ESTE COMPONENTE QUE CAUSA EFEITOR DROP AND DOWND NOS ITENS SUBSEQUENTES -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                                       aria-haspopup="true" role="button" >MULTA<span class="caret" /> </a>
+                                    <ul class="dropdown-menu menu-container-itens">
+                                        <li> <p:button class="item-menu" value="LISTA DE MULTAS" href="/view/feather/lista-multa.jsf" /></li>
+                                        <li> <p:button class="item-menu" value="QUITAR MULTA" href="/view/feather/form-multa.jsf" /></li>
+                                    </ul>
+                                </li>
+
+
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle"
+                                       data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+                                        LOCALIZAÇÃO <span class="caret" ></span></a>
+                                    <ul class="dropdown-menu menu-container-itens">
+                                        <li> <p:button class="item-menu" value="CADASTRAR CIDADE" href="/view/localization/form-cidade.jsf" /></li>
+                                        <li><p:button class="item-menu" value="CADASTRAR IDIOMA" href="/view/localization/form-idioma.jsf" />  </li>
+                                        <li> <p:button icon="ui-icon-folder-open" class="item-menu" value="LISTA DE CIDADES"
+                                                       href="/view/localization/lista-cidade.jsf"/></li>
+                                        <li> <p:button class="item-menu" value="LISTA DE ESTADOS" href="/view/localization/lista-estado.jsf"/> </li>
+
+
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+
+                            <div class="navbar-right">
+
+                                <p:growl for="chaveLogin" autoUpdate="true" class="ui-growl" showDetail="true" sticky="false" /> <!--classe ui-growl alterada no estilo.css -->
+
+                                <!-- FORMULARIOS DE AUTENTICACAO -->
+
+                                <!-- FORMULARIO DE LOGIN -->
+                                <h:form id="formulario" >
+
+                                    <f:subview id="sub-login" rendered="#{!menuBar.logado}">
+                                        <h:outputText value="SEM USER" style="margin-left:10px;" />
+                                        <p:inputText required="true" value="#{menuBar.login}"  placeholder="login"/>
+                                        <p:inputText type="password" required="true" value="#{menuBar.senha}" placeholder="senha" />
+
+                                    </f:subview>
+
+                                    <!-- BOTAO DE LOGOUT -->
+                                    <f:subview id="sub-logout" rendered="#{menuBar.logado}">
+                                        <h:outputText value="USER LOGADO" style="padding-left:10px;" />
+                                        <p:button value="MINHA CONTA" href="#" />
+                                    </f:subview>
+
+                                    <p:commandButton update=":formulario: " actionListener="#{menuBar.efetuarLogin()}" rendered="#{!menuBar.logado}" id="btn-entrar" process=":formulario:" value="ENTRAR"/>
+
+                                    <p:commandButton update=":formulario: " actionListener="#{menuBar.efetuaLogout()}" rendered="#{menuBar.logado}" id="btn-sair" process=":formulario:" value="SAIR"/>
+
+                                </h:form>
+
+                            </div>
+
+                        </div><!-- /.navbar-collapse -->
+
+                    </div><!-- /.container-fluid -->
+                </p:panel> 
+            </nav>
+
+        </ui:composition>
+
+    </h:body>
+
+</html>

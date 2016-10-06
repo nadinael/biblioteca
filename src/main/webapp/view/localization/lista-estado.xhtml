@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+        
+    <f:metadata>
+        <f:viewParam name="dummy"/>
+        <f:viewAction action="#{estadoBean.configurarTabela()}"/>
+    </f:metadata>
+
+        <h1 class="biblio-tit-pg">Lista de Estados</h1>
+
+        <h:form id="lista-estado">
+
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Editar" rendered="#{estadoBean.tabelaPronta}" />
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Adicionar Estado" outcome="/view/localization/form-estado.xhtml" />
+                </p:toolbarGroup>
+            </p:toolbar>
+
+
+            <f:subview id="subview-ready" rendered="#{estadoBean.tabelaPronta}">
+                <p:dataTable rowKey="#{est.id}" rows="15" value="#{estadoBean.listaEstados}" var="est" paginator="true"
+                             selectionMode="single" selection="#{estadoBean.editandoEstado}" paginatorPosition="bottom"
+
+                             emptyMessage="O banco de dados não possui nenhuma cidade" reflow="true" >
+
+                    <p:column headerText="ID" width="20%" >
+                        <h:outputText value="#{est.id}" />
+                    </p:column>
+                    <p:column headerText="NOME">
+                        <h:outputText value="#{est.nome}" />
+                    </p:column>
+                </p:dataTable>
+
+            </f:subview>
+
+            <p:commandButton update=":lista-estado: " process=":lista-estado: " actionListener="#{estadoBean.carregarDados()}"
+                             rendered="#{!estadoBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+        <p:messages autoUpdate="true"/>
+
+    </ui:define>
+</ui:composition>

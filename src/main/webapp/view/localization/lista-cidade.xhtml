@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml" >
+    <f:metadata>
+        <f:viewParam name="dummy"/>
+        <f:viewAction action="#{cidadeBean.configurarTabela()}" />
+    </f:metadata>
+    <ui:define name="conteudo" >
+
+        <h1 class="biblio-tit-pg">Lista de cidades</h1>
+        <h:form id="lista-cidade" >
+
+            <p:toolbar>
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Editar" rendered="#{cidadeBean.tabelaPronta}" />
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Adicionar cidade"  outcome="/view/localization/form-cidade.xhtml" />
+                </p:toolbarGroup>    
+            </p:toolbar>
+            <f:subview id="subview-ready" rendered="#{cidadeBean.tabelaPronta}" >
+                <p:dataTable rowKey="#{cidade.id}" selection="#{cidadeBean.editandoCidade}" selectionMode="single"
+                             var="cidade" value="#{cidadeBean.listaCidades}" paginatorPosition="bottom" rows="20"
+                             emptyMessage="O banco de dados não possui nenhuma cidade" reflow="true" >
+
+                    <p:column headerText="ID" style="width: 15%;" >
+                        <h:outputText value="#{cidade.id}" />
+                    </p:column>
+                    <p:column headerText="NOME"  >
+                        <h:outputText value="#{cidade.nome}" />
+                    </p:column>
+                    <p:column headerText="ESTADO" >
+                        <h:outputText value="#{cidade.estado.nome}" />
+                    </p:column>
+
+                </p:dataTable>
+
+            </f:subview>
+            <p:commandButton update=":lista-cidade: " process=":lista-cidade: " actionListener="#{cidadeBean.carregarDados()}"
+                             rendered="#{!cidadeBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

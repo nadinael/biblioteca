@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <f:facet name="first">
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        </f:facet>
+        <h:outputStylesheet name="curso.css" library="css" /> 
+        <h:outputScript target="body" library="primefaces" name="jquery/jquery.js" />
+        <h:outputScript target="body" library="js" name="app.js" />
+    </h:head>
+    <h:body>
+        <header class="aw-topbar">
+            <h:graphicImage library="imagens" name="logo.png"  />
+            <a href="#" class="aw-toggle js-toggle">
+                <i class="fa fa-bars"></i>
+            </a>
+        </header>
+
+        <aside class="aw-sidebar js-sidebar">
+
+            <nav class="aw-menu-side">
+                <ul>
+                    <li> <h:link> <i class="fa fa-fw fa-home"> </i> Dashboard </h:link></li>
+                    <li> <h:link> <i class="fa fa-fw fa-user"> </i> Clientes  </h:link></li>
+                    <li> <h:link> <i class="fa fa-fw fa-file-text"> </i> Relatórios  </h:link></li>
+                    <li class="is-selected"> <h:link> <i class="fa fa-fw fa-cog"></i> Configuracoes  </h:link></li>
+                </ul>
+            </nav>
+
+        </aside>
+
+        <section class="aw-content js-content">
+            <ui:insert name="conteudo" />
+        </section>
+
+    </h:body>
+</html>

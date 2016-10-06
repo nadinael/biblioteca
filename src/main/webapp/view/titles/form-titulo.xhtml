@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{tituloBean.configurarForm()}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Formulário de Título</h1>
+
+        <div class="ui-fluid">
+            <h:form id="frm-titulo">
+
+                <p:panelGrid id="panel-1" layout="grid" columns="4" style="align-items: center"
+                             columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-2,ui-grid-col-3,">
+
+                    <p:outputLabel value="Nome: " for="nome" />
+                    <p:inputText required="true" id="nome" placeholder="Nome do título." value="#{tituloBean.titulo.nome}"
+                                 style="text-transform: uppercase;" >
+                    </p:inputText>
+
+                    <p:outputLabel value="Edição:" for="edicao" />
+                    <p:inputText style="width: 50px;" id="edicao" value="#{tituloBean.titulo.edicao}" />
+
+                    <p:outputLabel value="Cód. de barras: *" for="cod" />
+                    <p:inputText id="cod" placeholder="Código de barras." value="#{tituloBean.titulo.codBarras}"
+                                 maxlength="20" style="width: 75%;">
+                        <p:keyFilter regEx="/[\d]/" />
+                    </p:inputText>
+
+                    <p:outputLabel value="Páginas: " for="paginas"  />
+                    <p:inputText style="width: 50px ;"  value="#{tituloBean.titulo.paginas}" id="paginas" />
+
+                    <p:outputLabel for="area" value="Área: *"  />
+
+                    <p:selectOneMenu id="area" value="#{tituloBean.titulo.areaCon}"
+                                     effect="blind"  >
+                        <f:selectItems value="#{tituloBean.areas}" itemValue="#{classe}"
+                                       var="classe" itemLabel="#{classe.descricao}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Data: " for="dt-nasc" />
+                    <p:calendar  locale="pt" id="dt-nasc" mask="99-99-9999" pattern="dd-MM-yyyy"
+                                 navigator="true" title="Data de lançamento do título." effect="fold" value="#{tituloBean.titulo.data}" />
+
+                    <p:outputLabel for="tipo" value="Tipo: *"  />
+                    <p:selectOneMenu id="tipo" value="#{tituloBean.titulo.tipoDoTitulo}" effect="blind"
+                                     title="Escolha o tipo do título, caso seja um livro, escolha o tipo Livro, caso seja uma revista, escolha o tipo Revista, e assim por diante." >
+                        <f:selectItems value="#{tituloBean.listaTipos}" itemValue="#{tip}"
+                                       var="tip" itemLabel="#{tip.descricao}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="cdd" value="CDD:" />
+                    <p:inputText maxlength="10" style="width:75%;" id="cdd" value="#{tituloBean.titulo.cdd}"
+                                 placeholder="Número CDD do título." title="Se o título possuir um número CDD, escreva-o aqui." >
+                        <p:keyFilter regEx="/[\d\-\.]/" />
+                    </p:inputText>
+
+                    <p:outputLabel for="volume" value="Volume:" />
+                    <p:inputText style="width:20%;" id="volume" value="#{tituloBean.titulo.volume}" />
+
+                    <p:outputLabel for="cdu" value="CDU:" />
+                    <p:inputText maxlength="15" style="width:90%;" id="cdu" value="#{tituloBean.titulo.cdu}"
+                                 placeholder="Número CDU do título." title="Se o título possuir um número CDU, escreva-o aqui." >
+                        <p:keyFilter regEx="/[\d\-\.]/" />
+                    </p:inputText>
+
+                    <p:outputLabel for="isbn" value="ISBN:" />
+                    <p:inputText maxlength="20" style="width:65%;" id="isbn" value="#{tituloBean.titulo.isbn}"
+                                 placeholder="Número ISBN do título." title="Se o título possuir um número ISBN, escreva-o aqui." >
+                        <p:keyFilter regEx="/[\d\-\.]/" />
+                    </p:inputText>
+
+                </p:panelGrid>
+
+                <!-- COFIRM DIALOGS -->
+
+                <p:confirmDialog styleClass="biblio-dialog-adiciona"
+                                 header="Aviso" responsive="true"
+                                 message="Deseja remover este marcador?"
+                                 widgetVar="confirmarAutor">
+                    <p:commandButton process="@this" value="Sim" update=":frm-titulo: tags"
+                                     oncomplete="PF('confirmarAutor').hide()" actionListener="#{tituloBean.removerAutor()}" />
+                    <p:button value="Não" onclick="PF('confirmarAutor').hide();return false;" />
+
+                </p:confirmDialog>
+                <!-- -->
+
+                <p:panelGrid id="panel-2" columns="3" layout="grid"
+                             columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-6">
+                    <p:outputLabel for="editora" value="Editora: " />
+
+                    <p:commandButton process="@this" value="Adicionar Editora">
+                        <p:ajax listener="#{tituloBean.carregarEditoras()}" oncomplete="PF('addEdit').show();" update=":tabela-editora"
+                                process="@this"    />
+                    </p:commandButton>
+                    <p:inputText id="editora" value="#{tituloBean.titulo.editora.nome}" disabled="true"
+                                 requiredMessage="Esccolha uma editora." required="true" />
+
+                    <p:outputLabel for="idioma" value="Idioma: " />
+
+                    <p:commandButton process="@this" value="Adicionar Idioma">
+                        <p:ajax process="@this" listener="#{tituloBean.carregarIdiomas()}" oncomplete="PF('addLingua').show();" update=":tabela-idioma" />
+                    </p:commandButton>
+                    <p:inputText id="idioma" value="#{tituloBean.titulo.idioma.descricao}" disabled="true"
+                                 requiredMessage="Esccolha um idioma." required="true" />
+                    <p:outputLabel for="autores" value="Autor(es): " />
+
+                    <p:commandButton process="@this" value="Adicionar Autor">
+                        <p:ajax process="@this" listener="#{tituloBean.carregarAutores()}" oncomplete="PF('addAutor').show();" update=":tabela-autor" />
+                    </p:commandButton>
+
+                    <p:dataTable  value="#{tituloBean.titulo.autores}" var="autor" id="autores"
+                                  reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                                  emptyMessage="Nenhum autor foi adicionado." >
+
+                        <p:column headerText="Nome" width="" >
+                            <h:outputText value="#{autor.nome}" />
+                        </p:column>
+                        <p:column headerText="Ação" width="50">
+                            <p:commandButton process="@this" title="Remover Autot." icon="fa fa-fw fa-trash"
+                                             rendered="#{!tituloBean.editando}" style="width: 40px;" onclick="PF('confirmarAutor').show()" >
+                                <f:setPropertyActionListener target="#{tituloBean.autor}" value="#{autor}" />
+                            </p:commandButton>
+
+                        </p:column>
+                    </p:dataTable>
+
+
+                    <p:outputLabel for="tags" value="Marcadores: " />
+
+                    <p:commandButton process="@this" value="Adicionar Marcador">
+                        <p:ajax  process="@this" listener="#{tituloBean.carregarTags()}" oncomplete="PF('addTag').show();" update=":tabela-tag" />
+                    </p:commandButton>
+
+                    <p:dataTable value="#{tituloBean.titulo.marcadores}" var="tag" id="tags"
+                                 reflow="true" rows="10" paginator="true" paginatorPosition="bottom"
+                                 emptyMessage="Nenhum marcador foi adicionado.">
+
+                        <p:column headerText="Nome" width="" >
+                            <h:outputText value="#{tag.descricao}" />
+                        </p:column>
+                        <p:column headerText="Ação" width="50">
+                            <p:commandButton id="btn-remove-tg" process="@this" title="Remover marca." icon="fa fa-fw fa-trash"
+                                             rendered="#{!tituloBean.editando}" style="width: 40px;" onclick="PF('confirmarTag').show()" >
+                                <f:setPropertyActionListener target="#{tituloBean.tag}" value="#{tag}" />
+                            </p:commandButton>
+
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:outputLabel for="exemplares" value="Cópias: " />
+
+                    <p:commandButton process="@this" value="Adicionar Cópia" update=":tabela-exemplar"
+                                     onclick="PF('addCopy').show();" actionListener="#{tituloBean.novoExemplar()}"  >
+                    </p:commandButton>
+
+                    <p:dataTable value="#{tituloBean.titulo.copias}" var="cp" id="exemplares"
+                                 reflow="true" rows="5" paginator="true" paginatorPosition="bottom"
+                                 emptyMessage="Nenhuma cópia foi adicionada.">
+
+                        <p:column headerText="Nº Tombo" >
+                            <h:outputText value="#{cp.tombo}" />
+                        </p:column>
+                        <p:column headerText="Código" >
+                            <h:outputText value="#{cp.codigo}" />
+                        </p:column>
+                        <p:column headerText="Status" >
+                            <h:outputText value="#{cp.dispStatus.descricao}" />
+                        </p:column>
+                        <p:column headerText="Ação" width="50">
+                            <p:commandButton id="btn-remove" process="@this" title="Remover cópia." icon="fa fa-fw fa-trash"
+                                             rendered="#{!tituloBean.editando}" style="width: 40px;"  >
+
+                                <p:ajax oncomplete="PF('confirmDelete').show()" process="@this" update=":frm-titulo:confirma-delete " />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:outputLabel value="Observação:" for="obs" />
+                    <p:outputLabel />
+                    <p:inputTextarea id="obs" value="#{tituloBean.titulo.observacao}" 
+                                     style="text-transform: uppercase; font-size: 12px;" rows="5"
+                                     maxlength="240"
+                                     title="Observações sobre o autor"
+                                     />
+
+                </p:panelGrid>
+                <p:commandButton process="@form" value="Salvar" update=":frm-titulo:"
+                                 actionListener="#{tituloBean.salvar()}" />
+
+
+                <p:messages autoUpdate="true"/>
+                <!-- COFIRM DIALOGS -->
+
+                <p:confirmDialog styleClass="biblio-dialog-adiciona"
+                                 header="Aviso" responsive="true"
+                                 message="Deseja remover este marcador?"
+                                 widgetVar="confirmarTag">
+                    <p:commandButton process="@this" value="Sim" update=":frm-titulo: tags"
+                                     oncomplete="PF('confirmarTag').hide()" actionListener="#{tituloBean.removerTag()}" />
+                    <p:button value="Não" onclick="PF('confirmarTag').hide();return false;" />
+
+                </p:confirmDialog>
+
+                <p:confirmDialog styleClass="biblio-dialog-adiciona" id="confirma-delete"
+                                 header="Aviso" responsive="true"
+                                 message="Deseja remover esta cópia?"
+                                 widgetVar="confirmDelete">
+                    <p:commandButton process="@this" value="Sim" update=":frm-titulo:exemplares"
+                                     oncomplete="PF('confirmDelete').hide()" actionListener="#{tituloBean.removerCopia()}"/>
+                    <p:button value="Não" onclick="PF('confirmDelete').hide();return false;" />
+
+                </p:confirmDialog>
+            </h:form>
+
+        </div>
+
+
+        <!-- DOIS FORMS AO MESMO TEMPO -->
+        <!-- :frm-titulo :tabela-editora -->
+        <!-- IMPORTANTE, ESTES DIALOGS NÃO ESTAO DENTRO DO FORM PRINCIPAL -->
+        <!-- dialogs -->
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" widgetVar="addEdit"
+                  modal="true" header="Editoras" responsive="true"
+                  footer="Selecione uma editora.">
+            <ui:include src="/WEB-INF/fragments/titulo/titulo-adiciona-editora.xhtml" />
+        </p:dialog>
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="true"  widgetVar="addLingua"
+                  modal="true"  header="Idiomas" responsive="true"
+                  footer="Selecione um idioma.">
+            <ui:include src="/WEB-INF/fragments/titulo/titulo-adiciona-idioma.xhtml" />
+        </p:dialog>
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" widgetVar="addAutor"
+                  modal="true" header="Autores" responsive="true"
+                  footer="Selecione uma autor.">
+            <ui:include src="/WEB-INF/fragments/titulo/titulo-adiciona-autor.xhtml" />
+        </p:dialog>
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" widgetVar="addTag"
+                  modal="true" header="Marcadores" responsive="true"
+                  footer="Selecione um marcador.">
+            <ui:include src="/WEB-INF/fragments/titulo/titulo-adiciona-tags.xhtml" />
+        </p:dialog>
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" widgetVar="addCopy"
+                  modal="true" header="Cópia" responsive="true"
+                  footer="Adicione uma nova cópia.">
+            <ui:include src="/WEB-INF/fragments/titulo/titulo-adiciona-copia.xhtml" />
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>

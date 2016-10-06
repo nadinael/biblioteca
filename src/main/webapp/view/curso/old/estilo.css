@@ -1,0 +1,124 @@
+@CHARSET "ISO-8859-1";
+
+.ui-growl{
+    position:fixed !important;
+    right: 10px!important;
+    top: 80px!important;
+    color: #ffffff;
+}
+
+.nadinael{
+    background-image: url(SO_texture_bg.jpg);
+    background-repeat:repeat;
+}
+
+.bg-caderno{
+    background-color: #fff; 
+    background-image: 
+        linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+        linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;
+}
+
+.menu-container-itens{
+    margin-right: 50px;
+    padding: 0;
+    background-image: url("#{resource['imagens:whitenoise-10x10.png']}");
+    background-repeat: repeat;
+}
+
+.item-menu{
+    padding: 0px;
+    margin: 0px;
+    height: 40px; 
+    width: 260px;
+    border-radius: 0px;
+    border: none;
+
+}
+
+.menu-pepper-grinder li a:hover{
+    background-color: #654B24;
+    color: #F7F8E8;
+}
+
+
+.estilo-menu-esquerdo{
+    margin-top: 80px;
+    font-size: 14px;
+}
+
+.social{
+    text-align: center;
+}
+
+.estilo-social{
+    color: black;
+    text-decoration: none;
+}
+
+.estilo-social:hover{
+    color: black;
+    text-decoration: none;    
+}
+
+.estilo-cabecalho{
+    margin-top: 80px;
+    padding: 14px;
+    border-bottom-color: #CEC9AC;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+}
+
+.estilo-rodape{
+    margin-top: 30px;
+
+    border-top-color: #CEC9AC;
+    border-top-width: 25px;
+    border-top-style: double;
+}
+
+.estilo-conteudo {
+    background-image: url("#{resource['imagens:whitenoise-10x10.png']}");
+    background-repeat: repeat;
+    text-align: justify;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* 
+background-image: url("#{resource['imagens:whitenoise-10x10.png']}");
+background-repeat: repeat;
+
+background-color: #F1F0EB;
+
+px cm % em
+px, pt, em, cm
+% em relacao ao elemento pai
+*/
+
+.bg-pepper{
+    background-color:#F7F8E8;
+}
+
+.bg-pepper-fundo{
+    background-color:#CEC9AC;
+}
+
+.estilo-medio-espaco {
+    padding: 10px;
+}
+
+.estilo-centralizado{
+    text-align: center;
+}
+
+.fonte-batang{
+    font-family: Batang;
+}
+
+.item-opt-menu {
+    padding: 12px !important;
+    margin: 12px !important;
+    font-family: Arial !important;
+}

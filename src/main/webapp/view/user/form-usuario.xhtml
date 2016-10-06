@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{usuarioBean.confirgurarForm()}" />
+        </f:metadata>
+
+
+        <h1 class="biblio-tit-pg">Formulário de Usuário</h1>
+
+        <div class="ui-fluid">
+            <h:form id="frm-user">
+
+                <!-- REQUISOCOES AUTOMATICAS AJAX -->
+                <p:poll  widgetVar="requisicao" rendered="#{!usuarioBean.carregado}"
+                         listener="#{usuarioBean.carregarEstadosAjax}" process="@this"
+                         immediate="true" interval="0"
+                         update=":frm-user:estado" autoStart="true" stop="true" />
+                <!-- -->
+
+                <p:keyFilter for="usuario" regEx="/[A-Z]/i" /> 
+
+                <p:toolbar>
+                    <p:toolbarGroup align="right">
+                        <p:button value="Lista de usuários" outcome="/view/user/lista-usuario.xhtml"  />
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:panelGrid columns="4" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4" >
+
+                    <p:outputLabel for="nome" value="Nome: *" style="text-align: left; font-size: 0.95"/>
+                    <p:inputText style="text-transform: uppercase" placeholder="Ex:Fernando Russel" id="nome" value="#{usuarioBean.usuario.nome}" title="Seu nome" />
+
+                    <p:outputLabel for="telefone" value="Telefone: *" />
+                    <p:inputMask mask="(99)99999-9999" id="telefone" value="#{usuarioBean.usuario.telefone}" title="Seu número de telefone pessoal"
+                                 style="width: 150px;"  placeholder="(62)99600-0904" maxlength="15" />
+
+                    <p:outputLabel for="usuario" value="Nome de usuário: *" style="text-align: left;line-height: 10px" />
+                    <p:inputText placeholder="Ex:Alotonni" id="usuario" value="#{usuarioBean.usuario.username}" size="40" >
+                        <p:ajax event="change" listener="#{usuarioBean.verificarUsername}" process=":frm-user:usuario" update=":frm-user:texto" />
+                    </p:inputText>
+
+                    <p:outputLabel for="cpf" value="CPF: *" />
+                    <p:inputMask mask="999.999.999-99" id="cpf" value="#{usuarioBean.usuario.cpf}" style="width: 150px;" title="CPF" placeholder="000000000-000">
+                        <p:ajax event="change" listener="#{usuarioBean.verificarCPF()}" process=":frm-user:cpf" update=":frm-user:texto" /> 
+                    </p:inputMask>
+
+                    <p:outputLabel for="pw1" value="Senha: " />
+                    <p:password match="pw2" label="Senha 01" id="pw1" value="#{usuarioBean.usuario.senha}" required="true"
+                                feedback="true" promptLabel="Digite sua senha" weakLabel="Fraca" goodLabel="Mediana"
+                                strongLabel="Forte" size="40" title="Escreva sua senha"/>
+
+                    <p:outputLabel for="cep" value="CEP: *" />
+                    <p:inputMask style="width: 150px" id="cep" maxlength="9" value="#{usuarioBean.usuario.cep}"  mask="99999-999" placeholder="00000-000" title="CEP de seu endereço"/>
+
+                    <p:outputLabel for="pw2" value="Senha: " />
+                    <p:password label="Senha 02" id="pw2" value="#{usuarioBean.usuario.senha}" required="true"
+                                feedback="true" promptLabel="Reescreva a senha" weakLabel="Fraca" goodLabel="Mediana"
+                                strongLabel="Forte" size="40" title="Escreva novamente sua senha"/>
+
+                    <p:outputLabel value="Data de Nascimento: *" for="dt-nasc" style="text-align: left;font-size: 0.9em" />
+                    <p:calendar id="dt-nasc" pattern="dd/MM/yyyy" effect="fold" mask="99/99/9999" locale="pt" title="Data de seu nascimento"
+                                value="#{usuarioBean.usuario.dataNascimento}">
+                    </p:calendar>
+
+                    <p:outputLabel for="email" value="E-Mail: *" />
+                    <p:inputText size="40" type="email" placeholder="Ex:nadinael.silva@gmail.com" id="email" value="#{usuarioBean.usuario.email}" title="E-mail" />
+
+                    <p:outputLabel for="estado" value="Estado: *"/>
+                    <p:selectOneMenu id="estado" value="#{usuarioBean.estado}" style="font-size: 0.85em">
+                        <f:selectItem itemLabel="Selecione a subcategoria"/>
+                        <f:selectItems value="#{usuarioBean.listaEstados}" var="uf"
+                                       itemValue="#{uf}" itemLabel="#{uf.nome}" />
+                        <p:ajax listener="#{usuarioBean.carregarCidades()}" update=":frm-user:cidade"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="endereco" value="Endereço: *" />
+                    <p:inputText title="Seu endereço pessoal" style="text-transform: uppercase" size="40" placeholder="Ex: vila dos Hobbits, SetoR K, Nº 12 " id="endereco" value="#{usuarioBean.usuario.endereco}" />
+
+
+                    <p:outputLabel for="cidade" value="Cidade: *"/>
+
+                    <p:selectOneMenu id="cidade" value="#{usuarioBean.usuario.cidade}" style="font-size: 0.85em">
+                        <f:selectItem itemLabel="Selecione a subcategoria"/>
+                        <f:selectItems value="#{usuarioBean.listaCidades}" var="cid"
+                                       itemValue="#{cid}" itemLabel="#{cid.nome}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="st-emp" value="Tipo de Usuário: *" style="text-align: left" />
+
+                    <p:selectOneRadio id="st-emp" value="#{usuarioBean.usuario.tipo}" style="font-size: 0.9em;" layout="pageDirection" >
+                        <f:selectItem itemValue="A" itemLabel="Administrador"/> 
+                        <f:selectItem itemValue="B" itemLabel="Bibliotecário" />
+                        <f:selectItem itemValue="L" itemLabel="Leitor" /> 
+
+                    </p:selectOneRadio>
+
+
+
+                    <p:outputLabel for="sexo" value="Sexo: *" />
+                    <p:selectOneRadio  id="sexo" value="#{usuarioBean.usuario.sexo}" layout="pageDirection" >
+                        <f:selectItem itemLabel="Masculino" noSelectionOption="true" itemValue="M"  />
+                        <f:selectItem itemLabel="Feminino" itemValue="F"/>
+                    </p:selectOneRadio>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" process="@form" update="@form" actionListener="#{usuarioBean.salvar()}" title="Salve as informações" /> 
+                    </f:facet>
+
+                </p:panelGrid>
+                <p:messages id="texto" autoUpdate="true"/>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

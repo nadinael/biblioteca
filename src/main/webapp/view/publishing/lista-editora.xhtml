@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+    <ui:define name="conteudo" >
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{editoraBean.configurarTabela()}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Lista de Editoras</h1>
+
+        <h:form id="lista-editora">
+            <p:toolbar>
+                <p:toolbarGroup align="left"></p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Adicionar Editora" outcome="/view/publishing/form-editora.xhtml" />
+                </p:toolbarGroup>
+            </p:toolbar>
+            <f:subview id="subview-ready" rendered="#{editoraBean.tabelaPronta}">
+                <p:dataTable rows="15" value="#{editoraBean.listaEditoras}" var="pub" paginator="true" reflow="true" selectionMode="single"
+                             rowKey="#{pub.id}" selection="#{editoraBean.editandoEditora}" emptyMessage="Sem registros no banco de dados."
+                             paginatorPosition="bottom" style="font-size: 0.8em" >
+                    <p:column headerText="ID" width="45" >
+                        <h:outputText value="#{pub.id}" />
+                    </p:column>
+                    <p:column headerText="NOME">
+                        <h:outputText value="#{pub.nome}" />
+                    </p:column>
+                    <p:column headerText="E-MAIL">
+                        <h:outputText value="#{pub.email}" />
+                    </p:column>
+                    <p:column headerText="ENDEREÇO" priority="6">
+                        <h:outputText value="#{pub.endereco}" />
+                    </p:column>
+                    <p:column headerText="CIDADE">
+                        <h:outputText value="#{pub.cidade.nome}" />
+                    </p:column>
+                </p:dataTable>
+            </f:subview>
+
+            <p:commandButton update=":lista-editora:" process=":lista-editora: " actionListener="#{editoraBean.carregarDados}"
+                             rendered="#{!editoraBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+
+            <p:messages autoUpdate="true"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

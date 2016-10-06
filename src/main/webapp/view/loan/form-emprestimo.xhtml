@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{emprestimoBean.configurarPagina()}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Empréstimos</h1>
+
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" 
+                  modal="true" header="Leitores" responsive="true"
+                  widgetVar="dialogLeitor" footer="Adicione um leitor.">
+            <ui:include src="/WEB-INF/fragments/emprestimo/emprestimo-adiciona-leitor.xhtml" />
+        </p:dialog>
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" 
+                  modal="true" header="Títulos" responsive="true"
+                  widgetVar="dialogTitulo" footer="Adicione um título.">
+            <ui:include src="/WEB-INF/fragments/emprestimo/emprestimo-adiciona-titulo.xhtml" />
+        </p:dialog>
+        <p:dialog styleClass="biblio-dialog-adiciona" resizable="false" draggable="false" 
+                  modal="true" header="Cópias" responsive="true"
+                  widgetVar="dialogCopias" footer="Selecione uma cópia.">
+            <ui:include src="/WEB-INF/fragments/emprestimo/emprestimo-titulo-adiciona-copia.xhtml" />
+        </p:dialog>
+
+        <p:panel>
+            <!-- INICIO DA TABVIEW -->
+            <p:tabView id="tabview">
+
+                <!-- INICIO DA TAB -->
+
+                <p:tab title="Novo Empréstimo">
+                    <div class="ui-fluid">
+                        <h:form id="frm-emprestimo">
+
+                            <p:panelGrid layout="grid" columns="3" columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-5">
+
+                                <p:outputLabel id="label-leitor" for="in-leitor" value="Leitor:"/>
+                                <p:commandButton id="btn-ad-leitor" process="@this" value="Adicionar leitor">
+                                    <p:ajax listener="#{emprestimoBean.carregarLeitores()}" update=":adiciona-leitor"
+                                            process="@this" oncomplete="PF('dialogLeitor').show();" />
+                                </p:commandButton>
+                                <p:inputText id="in-leitor" value="#{emprestimoBean.emprestimo.leitor.nome}" disabled="true" required="true" />
+
+                                <p:outputLabel for="in-copia" id="label-titulo" value="Titulo: "/>
+                                <p:commandButton id="btn-add-titulo" process="@this" value="Adicionar título">
+                                    <p:ajax update=":adiciona-titulo" listener="#{emprestimoBean.carregarTitulos()}"
+                                            process="@this" oncomplete="PF('dialogTitulo').show();" />
+                                </p:commandButton>
+
+                                <p:panelGrid layout="grid" columns="1" >
+                                    <p:inputText id="in-titulo" value="#{emprestimoBean.emprestimo.titulo.nome}" disabled="true" required="true"/>
+                                    <p:inputText id="in-copia" value="#{emprestimoBean.emprestimo.copia.codigo}" disabled="true" required="true"/>
+                                </p:panelGrid>
+
+
+                            </p:panelGrid>
+                            <p:panelGrid layout="grid" columns="4" >
+
+                                <p:outputLabel for="dt-inicio" value="Data de inicio:"/>
+                                <p:calendar  locale="pt" id="dt-inicio" mask="99-99-9999" pattern="dd-MM-yyyy"
+                                             navigator="true" title="Data de lançamento do título." effect="fold"
+                                             value="#{emprestimoBean.inicio}" />
+                                <p:outputLabel for="dt-entrega" value="Data de entrega:"/>
+                                <p:calendar  locale="pt" id="dt-entrega" mask="99-99-9999" pattern="dd-MM-yyyy"
+                                             value="#{emprestimoBean.fim}" disabled="true"
+                                             title="Data de entrega do título." effect="fold" />
+
+                                <p:outputLabel value="Dias adicionais:"/>
+                                <p:spinner value="#{emprestimoBean.emprestimo.diasAdicionais}" max="60" style="width: 70px" min="0">
+                                    <p:ajax event="change" listener="#{emprestimoBean.gerarDateDev()}" update=":tabview:frm-emprestimo:dt-entrega" process="@this" />
+                                </p:spinner>
+                            </p:panelGrid>
+                            <p:separator style="height: 5px" />
+
+                            <p:commandButton value="Finalizar" process=":tabview:frm-emprestimo:" update=":tabview:frm-emprestimo: :tabview:pesquisa:"
+                                             actionListener="#{emprestimoBean.efetuarEmprestimo()}" />
+                            <p:commandButton value="Cancelar" process="@this" />
+
+                            <p:messages id="mensagem" autoUpdate="true" />
+                        </h:form>
+                    </div>
+
+                </p:tab>
+
+                <!-- FIM DA TAB -->
+                <!-- INICIO DA TAB -->
+
+                <p:tab title="Empréstimos">
+                    <div class="ui-fluid">
+                        <p:panel>
+                            <h:form id="pesquisa" style="margin-top: 30px;" >
+                                <div class="ui-fluid">
+                                    <p:panelGrid layout="grid" style="margin-bottom: 5px;" columns="2">
+                                        <p:inputText placeholder="Pesquisar" /> <p:commandButton icon="fa fa-fw fa-search" />
+                                    </p:panelGrid>
+                                </div>
+                                <f:subview id="subview-ready" rendered="#{emprestimoBean.tabelaPronta}">
+                                    <p:dataTable id="data-table" var="emp" value="#{emprestimoBean.listaEmprestimo}"
+                                                 emptyMessage="Sem registros."  reflow="true" paginatorPosition="bottom" rows="20"
+                                                 rowKey="#{emp.id}" selection="#{emprestimoBean.editandoEmprestimo}" selectionMode="single" >
+
+                                        <p:column headerText="ID" width="50" >
+                                            <h:outputText value="#{emp.id}" />
+                                        </p:column>
+                                        <p:column headerText="TÍTULO" >
+                                            <h:outputText value="#{emp.titulo.nome}" />
+                                        </p:column>
+                                        <p:column headerText="CÓPIA" width="80" >
+                                            <h:outputText value="#{emp.copia.codigo}" />
+                                        </p:column>
+                                        <p:column headerText="LEITOR" >
+                                            <h:outputText value="#{emp.leitor.nome}" />
+                                        </p:column>
+                                        <p:column width="80" headerText="STATUS" >
+                                            <h:outputText value="#{emp.status.descricao}" />
+                                        </p:column>
+                                        <p:column style="text-align: center" width="80" headerText="DATA" >
+                                            <h:outputText value="#{emp.dataEmprestimo.time}">
+                                                <f:convertDateTime locale="pt" pattern="dd-MM-yyyy" timeZone="GMT-03:00" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column width="80" headerText="DEV." >
+                                            <h:outputText value="#{emp.dataEstimadaDev.time}">
+                                                <f:convertDateTime locale="pt" dateStyle="long" pattern="dd-MM-yyyy HH:mm" timeZone="GMT-03:00" />
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:ajax id="ajax" event="rowSelect" process="@this" disabled="#{emprestimoBean.selecionado}" listener="#{emprestimoBean.selecionarEmprestimo()}"
+                                                update=":tabview:pesquisa:subview-ready:data-table:btn-ver" />
+                                        <f:facet name="header">
+                                            <p:commandButton id="btn-ver" disabled="#{!emprestimoBean.selecionado}" value="VER"
+                                                             process="@this" update=":tabview:dialog-up " oncomplete="PF('janela-ver').show();" />
+                                        </f:facet>
+
+                                    </p:dataTable>    
+                                </f:subview>
+
+                                <p:commandButton update=":tabview:pesquisa:" process=":tabview:pesquisa:btn-load " actionListener="#{emprestimoBean.carregarEmprestimos()}"
+                                                 rendered="#{!emprestimoBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+                            </h:form>
+                            <p:dialog id="dialog-up" styleClass="biblio-dialog-adiciona see-loan" resizable="false" draggable="false" 
+                                      modal="true" header="Empréstimo nº ${emprestimoBean.editandoEmprestimo.id}" responsive="true"
+                                      widgetVar="janela-ver" hideEffect="fold" showEffect="fold">
+                                <ui:include src="/WEB-INF/fragments/emprestimo/emprestimo-editar.xhtml" />
+                            </p:dialog>
+                        </p:panel>
+                    </div>
+                </p:tab>
+
+                <!-- FIM DA TAB -->
+
+            </p:tabView>
+            <!-- FIM DA TABVIEW -->
+
+            <f:facet name="footer">
+                <div class="ui-fluid">
+                    <p:panelGrid layout="grid" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-2,ui-grid-col-3">
+                        <p:outputLabel value="Usuário:" />
+                        <p:outputLabel value="#{emprestimoBean.usuario.username}" />
+                        <p:outputLabel value="Tipo:" />
+                        <p:outputLabel value="#{emprestimoBean.usuario.tipo.descricao}" />
+                    </p:panelGrid>
+                </div>
+            </f:facet>
+
+        </p:panel>
+    </ui:define>
+</ui:composition>

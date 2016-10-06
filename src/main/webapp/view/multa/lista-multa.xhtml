@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+
+        <ui:define name="titulo">  <title> Usuario </title>  </ui:define>
+        <ui:define name="conteudo" >
+            <f:metadata>
+                <f:viewParam name="dummy" />
+            </f:metadata>
+
+            <h:form>
+                <p:dataTable rows="15" value="#{estadoBean.lista}" var="est" paginator="true" >
+                    <p:column headerText="ID" >
+                        <h:outputText value="#{est.id}" />
+                    </p:column>
+                    <p:column headerText="NOME">
+                        <h:outputText value="#{est.nome}" />
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+
+            <p:messages autoUpdate="true"/>
+        </ui:define>
+    </ui:composition>
+</html>

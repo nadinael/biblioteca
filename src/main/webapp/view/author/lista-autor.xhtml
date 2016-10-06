@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{autorBean.configurarTabela()}" />
+        </f:metadata>
+
+
+        <h1 class="biblio-tit-pg">Lista de Autores</h1>
+
+
+        <h:form id="lista-autor">
+            <p:toolbar>
+                <p:toolbarGroup align="right">
+                    <p:button value="adicionar autor" outcome="/view/author/form-autor.xhtml" />
+                </p:toolbarGroup>
+            </p:toolbar>
+            <f:subview id="subview-ready" rendered="#{autorBean.tabelaPronta}">
+                <p:dataTable var="autor" value="#{autorBean.listaAutores}" rowKey="#{autor.id}" selectionMode="single"
+                             reflow="true" paginatorPosition="bottom" paginator="true" selection="#{autorBean.editandoAutor}"
+                             emptyMessage="Sem registros no banco de dados." rows="20" >
+                    <p:column headerText="ID" width="80">
+                        <h:outputText value="#{autor.id}" />
+                    </p:column>
+                    <p:column headerText="NOME" >
+                        <h:outputText value="#{autor.nome}" />
+                    </p:column>
+                    <p:column headerText="NACIONALIDADE" >
+                        <h:outputText value="#{autor.paisOrigem}" />
+                    </p:column>
+                </p:dataTable>
+            </f:subview>
+
+            <p:commandButton update=":lista-autor:" process=":lista-autor:btn-load " actionListener="#{autorBean.carregarDados}"
+                             rendered="#{!autorBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

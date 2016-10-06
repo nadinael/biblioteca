@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui" 
+                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                 xmlns:o="http://omnifaces.org/ui"
+                 template="/WEB-INF/templates/template-responsivo.xhtml" >
+
+    <ui:define name="conteudo">
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{configuracoesBean.configurarFormDB()}" />
+            <o:viewParam name="marca" value="#{configuracoesBean.password}"/>
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg"> Configuração o Banco de Dados </h1>
+        <div class="ui-fluid">
+            <f:subview id="centralizado" rendered="#{configuracoesBean.aprovado}" >
+                <p:panel>
+                    <p:tabView>
+                        <p:tab title="Configuração do Banco de Dados">
+                            <div class="ui-fluid">
+                                <h:form id="frm-cfg-db" >
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-4, ui-grid-col-6" >
+
+                                        <p:outputLabel for="dbuser" value="Login:" />
+                                        <p:inputText id="dbuser" value="#{configuracoesBean.dtBase.username}" 
+                                                     placeholder="Username do banco de dados"
+                                                     disabled="#{!configuracoesBean.editando}"
+                                                     title="Nome de usuário para o banco de dados (Criado no Banco de dados)" />
+
+                                        <p:outputLabel for="psword" value="Senha:" />
+                                        <p:password id="psword"  value="#{configuracoesBean.dtBase.password}"
+                                                    disabled="#{!configuracoesBean.editando}"
+                                                    title="Senha criada para o banco de dados" placeholder="Senha de acesso ao banco de dados" />
+
+                                        <p:outputLabel for="base" value="Nome do banco:" />
+                                        <p:inputText id="base"  value="#{configuracoesBean.dtBase.nomeBanco}"
+                                                     placeholder="Nome da base de dados"
+                                                     disabled="#{!configuracoesBean.editando}"
+                                                     title="Nome do seu banco de dados"/>
+
+                                        <p:outputLabel for="door" value="Porta:" />
+                                        <p:inputText id="door"  value="#{configuracoesBean.dtBase.porta}"
+                                                     placeholder="Porta."
+                                                     disabled="#{!configuracoesBean.editando}"
+                                                     title="Nome do seu banco de dados"/>
+
+
+                                        <p:outputLabel value="IP:" for="ip" />
+                                        <p:inputText id="ip" value="#{configuracoesBean.dtBase.ip}"
+                                                     title="Endereço de IP da conexão" 
+                                                     disabled="#{!configuracoesBean.editando}"/>
+
+                                        <p:outputLabel value="URL:" for="url" />
+                                        <p:inputText disabled="true" id="url" value="#{configuracoesBean.dtBase.url}" 
+                                                     title="URL gerada para a conexão com o banco de dados" />
+
+
+                                        <p:outputLabel value="Driver: " for="driver" />
+                                        <p:inputText id="driver" value="#{configuracoesBean.dtBase.jdbcDriver}" 
+                                                     title="Driver do jdbc."  disabled="#{!configuracoesBean.editando}" />
+
+                                        <p:outputLabel value="Dialect: " for="dialect" />
+                                        <p:inputText disabled="true"
+                                                     id="dialect" value="#{configuracoesBean.dtBase.dialect}" 
+                                                     title="Dialect do banco." />
+
+                                    </p:panelGrid>
+                                    <p:commandButton id="btn-ed" process="@this" update="@form" value="Editar"
+                                                     rendered="#{!configuracoesBean.editando}"
+                                                     actionListener="#{configuracoesBean.updateCfgDB()}"/> 
+                                    <p:commandButton id="btn-up" rendered="#{configuracoesBean.editando}"
+                                                     process="@form" update="@form" value="Salvar"
+                                                     actionListener="#{configuracoesBean.updateCfgDB()}"
+                                                     />
+                                    <p:commandButton value="Testar conexão" rendered="#{!configuracoesBean.editando}" process="@this" update="@this"
+                                                     actionListener="#{configuracoesBean.verificarConexao()}" />
+                                </h:form>
+                            </div>
+                        </p:tab>
+                        <p:tab title="Configuração local padrao do sistema">
+                            <div class="ui-fluid">
+                                <h:form id="form-db-padrao">
+
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-4, ui-grid-col-6" >
+
+                                        <p:outputLabel for="pd-dbuser" value="Nome de usuário do banco:" />
+                                        <p:inputText id="pd-dbuser" value="#{configuracoesBean.padrao.username}" 
+                                                     placeholder="Username do banco de dados" disabled="true"
+                                                     title="Nome de usuário para o banco de dados (Criado no Banco de dados)" />
+
+                                        <p:outputLabel for="pd-psword" value="Senha do Banco de dados:" />
+                                        <p:password id="pd-psword"  value="#{configuracoesBean.padrao.password}" disabled="true"
+                                                    title="Senha criada para o banco de dados" placeholder="Senha de acesso ao banco de dados" />
+
+                                        <p:outputLabel for="pd-base" value="Nome da base de dados:" />
+                                        <p:inputText id="pd-base"  value="#{configuracoesBean.padrao.nomeBanco}"
+                                                     placeholder="Nome da base de dados" disabled="true"
+                                                     title="Nome do seu banco de dados"/>
+
+                                        <p:outputLabel value="IP:" for="pd-ip" />
+                                        <p:inputText id="pd-ip" value="#{configuracoesBean.padrao.ip}"
+                                                     title="Endereço de IP da conexão" disabled="true"  />
+
+                                        <p:outputLabel value="Porta:" for="pd-porta" />
+                                        <p:inputText disabled="true" id="pd-porta" value="#{configuracoesBean.padrao.porta}" 
+                                                     title="URL gerada para a conexão com o banco de dados" />
+
+                                        <p:outputLabel value="URL:" for="pd-url" />
+                                        <p:inputText disabled="true" id="pd-url" value="#{configuracoesBean.padrao.url}" 
+                                                     title="URL gerada para a conexão com o banco de dados" />
+                                    </p:panelGrid>
+
+                                </h:form>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                </p:panel>
+
+            </f:subview>
+
+        </div>
+        <p:messages autoUpdate="true" />
+
+    </ui:define>
+</ui:composition>

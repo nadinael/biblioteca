@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <!-- Primefaces Responsivo -->
+        <f:facet name="fisrt">
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, inicial-scale=1" />
+        </f:facet>
+        <!-- -->
+
+        <!--"north""south""west""east""center" -->
+        <ui:insert name="titulo">
+            <title>ESCREVA UM TITULO AQUI!</title>    
+        </ui:insert>  
+        <!-- Bootstrap -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE-edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+        <h:outputStylesheet name="estilo.css" library="css" /> 
+        <h:outputStylesheet name="bootstrap.min.css" library="css" /> 
+        <h:outputScript name="bootstrap.min.js" library="js" /> 
+
+
+    </h:head>
+    <h:body styleClass="bg-pepper-fundo">
+
+        <div class="container bg-pepper">
+            <!-- NAV-BAR -->
+            <div class="row">
+                <ui:insert name="menubar"> Menu Nav Bar </ui:insert>
+            </div>  
+
+            <div class="row">
+                <!-- MENU-LEFT -->
+                <div class="col-md-2 estilo-menu-esquerdo" > 
+                    <ui:insert name="menu-left"> Menu left </ui:insert>
+                </div>
+
+                <div class="col-md-10 ">
+                    <!-- HEADER -->
+                    <div class="estilo-cabecalho">
+                        <ui:insert name="header">Header</ui:insert>
+                    </div>
+                    <!-- CORPO -->
+                    <div class="estilo-conteudo">   
+                        <ui:insert name="conteudo" > Menu body </ui:insert> 
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RODAPE -->
+            <div class="row"  > 
+                <div class="container estilo-rodape" >
+                    <ui:insert name="footer"> footer </ui:insert>
+                </div>
+            </div>
+
+        </div>
+
+    </h:body>
+</html>

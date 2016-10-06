@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+        <f:metadata>
+            <f:viewParam name="dummy"/>
+            <f:viewAction action="#{editoraBean.configurarForm}" />
+
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Formulário de Editora</h1>
+        <div class="ui-fluid">
+            <h:form id="frm-edit" style="font-family:  Century Gothic !important;">
+
+
+                <!-- REQUISOCOES AUTOMATICAS AJAX -->
+                <p:poll  rendered="#{!editoraBean.carregado}" widgetVar="requisicao" id="pol"
+                         listener="#{editoraBean.carregarEstadosAjax()}" process="@this"
+                         immediate="true" interval="0"
+                         update=":frm-edit:estado" autoStart="true" stop="true" />
+                <!-- -->
+
+                <p:toolbar>
+                    <p:toolbarGroup align="right">
+                        <p:button value="Lista de Editoras" outcome="/view/publishing/lista-editora.xhtml" />
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:panelGrid columns="4" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+                    <p:outputLabel value="Nome: *" for="nome"/>
+                    <p:inputText id="nome" placeholder="Ex:Fernando Russel" style="text-transform: uppercase" maxlength="99" title="Nome da editora"
+                                 value="#{editoraBean.editora.nome}" />
+
+                    <p:outputLabel value="E-Mail: *" for="email" />
+                    <p:inputText id="email" placeholder="Ex:email@example.com" maxlength="150" title="E-Mail da editora"
+                                 value="#{editoraBean.editora.email}" />
+
+                    <p:outputLabel  value="Web site: " />
+                    <p:inputText id="website" placeholder="EX: www.example.com.br" maxlength="150" title="www.site-da-editora.com.br"
+                                 value="#{editoraBean.editora.website}"/>
+
+                    <p:outputLabel for="telefone" value="Telefone: " />
+                    <p:inputText  id="telefone" value="#{editoraBean.editora.telefone}" style="width: 150px;"
+                                  maxlength="15" title="Digite um número de telefone">
+                        <p:keyFilter regEx="/[\d\-]/" />
+                    </p:inputText>
+
+                    <p:outputLabel for="estado" value="Estado: *"/>
+                    <p:selectOneMenu id="estado" value="#{editoraBean.estado}" style="font-size: 0.8em" title="Escolha um estado" >
+                        <f:selectItem itemLabel="Selecione a subcategoria"/>
+                        <f:selectItems value="#{editoraBean.listaEstados}" var="uf"
+                                       itemValue="#{uf}" itemLabel="#{uf.nome}" />
+                        <p:ajax listener="#{editoraBean.carregarCidadesPorEstado()}" update=":frm-edit:cidade"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="cep" value="CEP: *" />
+                    <p:inputMask id="cep" maxlength="9" mask="99999-999" placeholder="00000-000" title="CEP do endereço"
+                                 value="#{editoraBean.editora.cep}" style="width: 110px;" />
+
+                    <p:outputLabel for="cidade" value="Cidade: *"/>
+                    <p:selectOneMenu id="cidade" value="#{editoraBean.editora.cidade}" style="font-size: 0.8em" title="Escolha uma cidade">
+                        <f:selectItem itemLabel="Selecione a subcategoria"/>
+                        <f:selectItems value="#{editoraBean.listaCidades}" var="cid"
+                                       itemValue="#{cid}" itemLabel="#{cid.nome}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="endereco" value="Endereço: *" />
+                    <p:inputText style="text-transform: uppercase" size="40" placeholder="Ex: vila dos Hobbits, SetoR K, Nº 12 " id="endereco"
+                                 value="#{editoraBean.editora.endereco}" title="Endereço da editora" />
+
+                    <f:facet name="footer">
+                        <p:commandButton process="@form" update="@form" value="Salvar" action="#{editoraBean.salvar}" title="Salve asinformações" />
+                    </f:facet>
+                </p:panelGrid>
+                <p:messages autoUpdate="true" />
+
+            </h:form>
+        </div>
+
+
+    </ui:define>
+</ui:composition>

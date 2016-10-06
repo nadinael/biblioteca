@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+    <ui:define name="conteudo" >
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action ="#{autorBean.configurarForm()}"/>
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Formulário de Autor</h1>
+
+        <div class="ui-fluid">
+            <h:form id="frm-autor">
+
+                <p:toolbar>
+                    <p:toolbarGroup align="left">
+                        <p:commandButton process="@form" update="@form" value="Salvar" action="#{autorBean.salvar()}" />
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:button value="Lista de autores" outcome="/view/author/lista-autor.xhtml" />
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3, ui-grid-col-6">
+                    <p:outputLabel for="nome" value="Nome:" />
+                    <p:inputText style="text-transform: uppercase;" id="nome" value="#{autorBean.autor.nome}" placeholder="Nome do autor."
+                                 title="Nome completo do autor" maxlength="100" />
+
+                    <p:outputLabel for="nacional" value="Nacionalidade:" />
+                    <p:inputText style="text-transform: uppercase;" id="nacional" placeholder="Nacionalidade." value="#{autorBean.autor.paisOrigem}"
+                                 title="Se conhecida, escreva a nacionalidade do autor" maxlength="40"/>
+
+                    <p:outputLabel value="Observações:" for="obs" />
+                    <p:inputTextarea style="text-transform: uppercase; font-size: 8pt;" id="obs" rows="5"
+                                     value="#{autorBean.autor.observacao}" maxlength="240"
+                                     title="Observações sobre o autor" />
+                </p:panelGrid>
+
+            </h:form>
+        </div>
+
+        <p:messages autoUpdate="true"/>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 template="/WEB-INF/templates/template-responsivo.xhtml" >
+
+    <ui:define name="conteudo" >
+
+        <f:metadata>
+            <f:viewParam name="dummy"/>
+            <f:viewAction action="#{idiomaBean.configurarForm()}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg" >Formulário de Idioma</h1>
+
+        <div class="ui-fluid">
+
+            <h:form id="form-idioma">
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-6">
+
+                    <p:outputLabel for="nome" value="Nome:" style="line-height: 30px;" />
+                    <p:inputText style="text-transform: uppercase;" id="nome" value="#{idiomaBean.idioma.descricao}"
+                                 placeholder="Descrição do idioma." maxlength="30" />
+
+                </p:panelGrid>
+                <p:toolbar>
+                    <p:toolbarGroup align="left">
+                        <p:commandButton process=":form-idioma: btn-save" id="btn-save" update=":form-idioma " value="Salvar" action="#{idiomaBean.salvar()}" />
+                    </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <p:button value="Lista de idiomas" outcome="/view/localization/lista-idioma.xhtml" />
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+            </h:form>
+
+        </div>
+        <p:messages autoUpdate="true"/>
+
+    </ui:define>
+</ui:composition>

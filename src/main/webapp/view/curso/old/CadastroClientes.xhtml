@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" 
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    template="/WEB-INF/templates/Curso.xhtml">
+
+    <ui:define name="conteudo">
+        <h1 class="aw-page-title"> Casdastro de clientes</h1>
+
+        <h:form id="frm">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Salvar" />
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Pesquisa" outcome="/view/curso/PesquisaClientes.jsf" />
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <div class="ui-fluid">
+                <p:tabView style="margin-top: 20px;">
+                    <p:tab title="Dados Basicos">
+                        <p:panelGrid columns="4" layout="grid" styleClass="panelgrid-noborder"
+                                     columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-2, ui-grid-col-4"   >
+
+                            <p:outputLabel for="nome" value="nome" />
+                            <p:inputText id="nome" required="true" />
+
+                            <h:outputLabel for="cpf" value="CPF" />
+                            <p:inputMask id="cpf" mask="999.999.999-99" required="true"
+                                         style="width: 60%;" />
+
+                            <p:outputLabel for="telefone" value="Telefone" />
+                            <p:inputText id="telefone" required="true" />
+
+                            <p:outputLabel for="celular" value="Celular" />
+                            <p:inputText id="celular" required="true" />
+
+                            <p:outputLabel for="email" value="E-Mail" />
+                            <p:inputText id="email" required="true" />
+
+                            <p:outputLabel for="estado" value="Estado" />
+                            <p:selectOneMenu id="estado">
+                                <f:selectItem itemLabel="São Paulo" />
+                                <f:selectItem itemLabel="Rio de Janeiro" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="nasc" value="Dt Nascimento"  />
+                            <p:inputText id="nasc" />
+                            <p:outputLabel/>
+                            <p:selectBooleanCheckbox itemLabel="Parcelamento liberado" />
+
+                        </p:panelGrid> 
+                    </p:tab>
+
+                    <p:tab title="Endereços">
+                        <p:commandButton value="Novo Endereço" style="width: auto; " oncomplete="PF('novoEnderecoDialog').show()" />
+                        <p:dataTable value="#{clientesManager.clienteEdicao.enderecos}" var="endereco"
+                                     emptyMessage="Ainda sem endereços." style="margin-top: 20px;"/>
+
+                        <p:column headerText="Logradouro">
+                            <h:outputText value="#{endereco.logradouro}" />
+                        </p:column>
+
+                        <p:column headerText="Número">
+                            <h:outputText value="#{endereco.numero}" />
+                        </p:column>
+
+                        <p:column headerText="Bairro" priority="4">
+                            <h:outputText value="#{endereco.bairro}" />
+                        </p:column>
+
+                        <p:column headerText="Cidade" priority="6">
+                            <h:outputText value="#{endereco.cidade}" />
+                        </p:column>
+
+                    </p:tab>
+
+                    <p:tab title="Observações">
+                        <p:inputTextarea rows="7" />
+                    </p:tab>
+                </p:tabView>
+            </div>
+
+            <p:dialog widgetVar="novoEnderecoDialog" id="novoEnderecoDialog" resizable="false"
+                      header="Novo Enderço" responsive="true">
+
+                <div class="ui-fluid">
+
+                    <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-4, ui-grid-col-8">
+                        <p:outputLabel value="Logradouro" for="logradouro" />
+                        <p:inputText id="logradouro" required="true" />
+
+                        <p:outputLabel value="Número" for="numero" />
+                        <p:inputText id="numero" required="true" />
+
+                        <p:outputLabel value="Bairro" for="bairro" />
+                        <p:inputText id="bairro" />
+
+                        <p:outputLabel value="Cidade" for="cidade" />
+                        <p:inputText id="cidade" />
+
+                        <p:outputLabel />
+
+                        <p:commandButton value="Adicionar" />
+                    </p:panelGrid>
+
+                </div>
+            </p:dialog>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

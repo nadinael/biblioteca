@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Multas</h1>
+        <h:form id="frm-multas" >
+
+            <f:subview id="subview-ready" rendered="#{multaBean.tabelaPronta}">
+                <p:dataTable rowKey="#{multa.id}" selection="#{multaBean.multa}" emptyMessage="Ainda não existem multas no sistema" selectionMode="single"
+                             var="multa" value="#{multaBean.listaDeMultas}"
+                             reflow="true" paginatorPosition="bottom" rows="20"
+                             >
+
+                    <p:column headerText="ID" width="50" >
+                        <h:outputText value="#{multa.id}" />
+                    </p:column>
+                    <p:column headerText="DATA" >
+                        <h:outputText value="#{multa.dataGerada.time}">
+                            <f:convertDateTime locale="pt" dateStyle="long" pattern="dd-MM-yyyy HH:mm" timeZone="GMT-03:00" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="LEITOR" >
+                        <h:outputText value="#{multa.leitor.nome}" />
+                    </p:column>
+                    <p:column headerText="TÍTULO" >
+                        <h:outputText value="#{multa.emprestimo.titulo.nome}" />
+                    </p:column>
+
+                    <p:column headerText="VALOR INICIAL" >
+                        <h:outputText value="#{multa.valorInicial}" />
+                    </p:column>
+
+                    <p:column headerText="VALOR FINAL" >
+                        <h:outputText value="#{multa.valorFinal}" />
+                    </p:column>
+
+                    <p:column headerText="STATUS" >
+                        <h:outputText value="#{multa.status.descricao}" />
+                    </p:column>
+
+                </p:dataTable>    
+            </f:subview>
+
+
+            <p:commandButton update=":frm-multas:" process=":frm-multas:btn-load " actionListener="#{multaBean.carregarMultas()}"
+                             rendered="#{!multaBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui" 
+                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                 xmlns:o="http://omnifaces.org/ui"
+                 template="/WEB-INF/templates/template-responsivo.xhtml" >
+
+    <ui:define name="conteudo">
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{biblioConfigBean.configurarFormBiblioCfg()}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg"> Configuração de Empréstimo </h1>
+
+
+        <p:panel>
+            <div class="ui-fluid">
+                <h:form id="cfg-loan">
+                    <p:panelGrid layout="grid" columns="5" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-1,ui-grid-col-4,ui-grid-col-3">
+                        <p:outputLabel value="Prazo:" />
+                        <p:inputNumber value="#{biblioConfigBean.config.prazo}" disabled="#{!biblioConfigBean.editando}"
+                                       minValue="1" maxValue="100"/>
+                        <h:outputText/>
+                        <p:outputLabel for="sabado" value="Sábado como dia útil:" />
+                        <p:selectOneRadio id="sabado" value="#{biblioConfigBean.config.sabadoUltil}" rendered="#{biblioConfigBean.editando}">
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        <f:facet name="header">
+                            <h:outputText value="Empréstimos" />
+                        </f:facet>
+
+                    </p:panelGrid>
+
+                    <p:panelGrid layout="grid" columns="4"
+                                 columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-4,ui-grid-col-2">
+                        <f:facet name="header">
+                            <h:outputText value="Multas" />
+                        </f:facet>
+
+                        <p:outputLabel value="Valor inicial:" />
+                        <p:inputNumber  value="#{biblioConfigBean.config.taxaInicial}" disabled="#{!biblioConfigBean.editando}" 
+                                        minValue="0.00" maxValue="1000.00" />
+
+                        <p:outputLabel value="Taxa adicional por dia:" />
+                        <p:inputNumber value="#{biblioConfigBean.config.taxaDiaria}" disabled="#{!biblioConfigBean.editando}"
+                                       minValue="0.00" maxValue="1000.00" />
+
+                        <p:outputLabel value="Valor Máximo:" />
+                        <p:inputNumber value="#{biblioConfigBean.config.valorMaximo}" disabled="#{!biblioConfigBean.editando}"
+                                       minValue="0.00" maxValue="1000.00" />
+
+                    </p:panelGrid>
+
+                    <p:toolbar>
+                        <p:toolbarGroup align="left">
+
+                            <p:commandButton id="btn-editar" process="@form"  update="@form" value="Editar" actionListener="#{biblioConfigBean.editar()}"
+                                             rendered="#{!biblioConfigBean.editando}"  />
+                            <p:commandButton id="btn-salvar" process="@form" update="@form" value="Salvar" 
+                                             actionListener="#{biblioConfigBean.salvar()}"
+                                             rendered="#{biblioConfigBean.editando}" />
+
+
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                </h:form>
+
+            </div>
+
+        </p:panel>
+
+
+
+    </ui:define>
+</ui:composition>

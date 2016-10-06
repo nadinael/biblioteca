@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/layout-template.xhtml" >
+
+            <ui:define name="topbar">
+                <ui:include src="/WEB-INF/include/topo.xhtml" />
+            </ui:define>  
+
+            <ui:define name="navegacao" >
+                <ui:include src="/WEB-INF/include/side-menu.xhtml" />
+            </ui:define>
+
+        </ui:composition> 
+    </h:body>
+</html>
+

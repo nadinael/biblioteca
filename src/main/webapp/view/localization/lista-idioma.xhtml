@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/templates/template-responsivo.xhtml" >
+        <f:metadata>
+            <f:viewParam name="dummy"/>
+            <f:viewAction action="#{idiomaBean.configurarTabela()}" />
+        </f:metadata>
+
+        <ui:define name="conteudo" >
+            <h1 class="biblio-tit-pg">Lista de Idiomas</h1>
+            <h:form id="lista-idioma" >
+
+                <p:toolbar>
+                    <p:toolbarGroup align="right">
+                        <p:button value="Adicionar Idioma" outcome="/view/localization/form-idioma.xhtml" />
+                    </p:toolbarGroup>    
+                </p:toolbar>
+
+                <f:subview id="subview-ready" rendered="#{idiomaBean.tabelaPronta}">
+                    <p:dataTable rowKey="#{idioma.id}" selection="#{idiomaBean.editandoIdioma}" emptyMessage="Ainda não existem idiomas no sistema" selectionMode="single" var="idioma" value="#{idiomaBean.listaIdiomas}"
+                                 reflow="true" paginatorPosition="bottom" rows="20"
+                                 >
+
+                        <p:column headerText="ID" width="50" >
+                            <h:outputText value="#{idioma.id}" />
+                        </p:column>
+                        <p:column headerText="DESCRIÇÂO" >
+                            <h:outputText value="#{idioma.descricao}" />
+                        </p:column>
+
+                    </p:dataTable>    
+                </f:subview>
+
+
+                <p:commandButton update=":lista-idioma:" process=":lista-idioma:btn-load " actionListener="#{idiomaBean.carregarDados}"
+                                 rendered="#{!idiomaBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+
+    <ui:define name="conteudo" >
+
+        <f:metadata>
+            <f:viewParam name="dummy" />
+            <f:viewAction action="#{tagBean.configurarForm}" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Formulário de Tags</h1>
+
+        <div class="ui-fluid">
+            <h:form id="form-tag">
+
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-6">
+                    <p:outputLabel for="nome" value="Nome: *" />
+                    <p:inputText style="text-transform: uppercase;" id="nome" value="#{tagBean.marca.descricao}" placeholder="Descrição" />
+                </p:panelGrid>
+
+                <p:toolbar>
+                    <p:toolbarGroup align="left">
+                        <p:commandButton style="text-transform: uppercase" process="@form" update=":form-tag :lista-tag: "
+                                         value="Salvar" action="#{tagBean.salvar}" />
+                    </p:toolbarGroup>
+
+                </p:toolbar>
+
+                <p:messages autoUpdate="true"/>
+            </h:form>
+        </div>
+
+        <h:form id="lista-tag">
+            <f:subview id="subview" rendered="#{tagBean.tabelaPronta}">
+
+                <p:dataTable rowKey="#{tag.id}" rows="15" value="#{tagBean.listaMarcas}" var="tag" paginator="true"
+                             selectionMode="single" selection="#{tagBean.marca}" paginatorPosition="bottom" 
+                             emptyMessage="Sem registros"  >
+
+                    <p:ajax event="rowSelect" disabled="#{tagBean.estaSelecionado}" listener="#{tagBean.linhaSelecionada()}" update=":lista-tag " />
+                    <f:facet name="header">
+                        <p:commandButton disabled="#{!tagBean.estaSelecionado}" value="EDITAR" process="@form" update=":form-tag " actionListener="#{tagBean.editar}" >
+
+                        </p:commandButton>
+                    </f:facet>
+
+                    <p:column headerText="ID" width="80">
+                        <h:outputText value="#{tag.id}" />
+                    </p:column>
+                    <p:column headerText="DESCRIÇÂO">
+                        <h:outputText value="#{tag.descricao}" />
+                    </p:column>
+
+
+                </p:dataTable>
+            </f:subview>
+
+            <p:commandButton update=":lista-tag" process=":lista-tag:btn-load " actionListener="#{tagBean.carregarDados}"
+                             rendered="#{!tagBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+<!--<p:column headerText="Opções" width="100" priority="5">
+                       <p:commandButton value="EDITAR" process="@form" update=":form-tag " actionListener="{tagBean.editar(tag)}" >
+
+                       </p:commandButton>
+                   </p:column>-->

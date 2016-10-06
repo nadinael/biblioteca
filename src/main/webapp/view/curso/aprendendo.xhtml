@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <h:outputStylesheet library="primefaces" name="grid/grid.css" />
+
+        <h:body>
+            <p:panelGrid id="panel-responsive"  style="border: yellow solid 2px !important; width: 100%;">
+                    <p:row>
+
+                        <p:column >
+                            <p:outputLabel for="cbarras" value="Código de barras: *" />
+                        </p:column>
+
+                        <p:column colspan="2">
+                            <p:inputText id="cbarras" placeholder="placeholder" value="#{obraBean.titulo.codBarras}" />
+                        </p:column>
+
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="nome" value="Nome: *" />
+                        </p:column>
+                        <p:column colspan="2">
+                            <p:inputText id="nome" placeholder="placeholder" value="#{obraBean.titulo.nome}" />
+                        </p:column>
+
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Edição:" />
+                        </p:column>
+                        <p:column colspan="2" >
+                            <p:inputText placeholder="placeholder" value="#{obraBean.titulo.edicao}" />    
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Data:" />
+                        </p:column>
+                        <p:column colspan="2" >
+                            <p:calendar id="dt-nasc" pattern="dd-MM-yy" effect="fold" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Observação:"  />
+                        </p:column>
+                        <p:column colspan="2" >
+                            <p:inputTextarea value="#{obraBean.titulo.observacao}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Estoque:"  /> 
+                        </p:column>
+                        <p:column colspan="2" >
+                            <p:inputText placeholder="Não modificável" value="#{obraBean.titulo.estoque}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="area" value="Área:"  />
+                        </p:column>
+                        <p:column colspan="2" >
+                            <p:selectOneMenu id="area" value="#{obraBean.titulo.areaCon}">
+                                <f:selectItems value="#{obraBean.areas}" itemValue="#{classe}"
+                                               var="classe" itemLabel="#{classe.descricao}" />
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="editora" value="Editora" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton type="button" process="@this" value="Adicionar Editora"
+                                             onclick="PF('addEdit').show();" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="editora" value="#{obraBean.titulo.editora.nome}" disabled="true" />
+                        </p:column>
+
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="idioma" value="Idioma" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton type="button" process="@this" value="Adicionar Idioma"
+                                             onclick="PF('addLingua').show();" />
+                        </p:column>
+
+                        <p:column>
+                            <p:inputText id="idioma" value="#{obraBean.titulo.idioma.descricao}" disabled="true" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+        </h:body>
+</html>

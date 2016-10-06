@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template-responsivo.xhtml">
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewParam name="dummy" />
+        </f:metadata>
+
+        <h1 class="biblio-tit-pg">Lista de títulos</h1>
+
+        <h:form id="lista-titulos">
+            <p:toolbar>
+                <p:toolbarGroup align="right">
+                    <p:button value="adicionar título" outcome="/view/titles/form-titulo.xhtml" />
+                </p:toolbarGroup>
+            </p:toolbar>
+            <f:subview id="subview-tit-ready" rendered="#{tituloBean.tabelaPronta}">
+                <p:dataTable var="titulo" value="#{tituloBean.listaTitulos}" rowKey="#{titulo.id}" selectionMode="single"
+                             reflow="true" paginatorPosition="bottom" paginator="true" selection="#{tituloBean.titulo}"
+                             emptyMessage="Sem registros no banco de dados." rows="20" >
+                    <p:column headerText="ID" width="80">
+                        <h:outputText value="#{titulo.id}" />
+                    </p:column>
+                    <p:column headerText="NOME" >
+                        <h:outputText value="#{titulo.nome}" />
+                    </p:column>
+                    <p:column headerText="IDIOMA" >
+                        <h:outputText value="#{titulo.idioma.descricao}" />
+                    </p:column>
+                </p:dataTable>
+            </f:subview>
+
+            <p:commandButton update=":lista-titulos " process=":lista-titulos:btn-load " actionListener="#{tituloBean.carregarDados}"
+                             rendered="#{!tituloBean.tabelaPronta}" id="btn-load"  value="CARREGAR INFORMAÇÕES"/>
+
+        </h:form>
+
+        <p:messages autoUpdate="true"/>
+    </ui:define>
+</ui:composition>
